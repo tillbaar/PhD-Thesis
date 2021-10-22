@@ -1,0 +1,189 @@
+% ┌────────────────────────────────────────────────────────────────────────────┐
+% │ DOCUMENT CLASS AND PAGE GEOMETRY                                           │
+% └────────────────────────────────────────────────────────────────────────────┘
+
+\documentclass[
+ paper=a4                       % use standard A4 paper size
+,fontsize=10pt                  % common are 10pt, 11pt, or 12pt
+,BCOR=1.0cm                     % defines the binding correction
+,twoside=true                   % defines a left-page / right-page document
+,DIV=8                          % defines the page layout
+,parskip=false                  % removes vertical distance after paragraphs
+,numbers=noendperiod            % no dot after last chapter number
+,toc=bib                        % bibliography in ToC
+,toc=listof                     % list of figures and list of tables in ToC
+,version=last                   % use latest KOMA-Script version
+,captions=rightbeside           % beside captions on inner side of the figure
+,captions=tableheading          % table captions on top of the table
+,usegeometry                    % makes KOMA nice play with the geometry package
+,chapterprefix                  % this makes the chapter heading magic work
+]{scrbook}
+  \pagestyle{myheadings}        % allows for personalized header and footer
+  \setcapindent{0cm}            % removes the indentation of captions
+  \setkomafont{caption}{\small} % defines font size for captions
+  \setparsizes{4.0em}{0pt}{1.0em plus 1.0fil} % sets paragraph indetation to 4em
+
+% A common measure for how many letter should fit in a single line to maximize
+% readability is 2.5 alphabets, or 66 letters (for the latin alphabet). In "The
+% Elements of Typographic Style", Robert Bringhurst gives a table of preferred
+% line lengths for different fonts. A least squares optimization fit of the
+% table data reveales that it can be approximated quite well with the following:
+% see tex.stackexchange.com/questions/59626
+\newcommand*\GetTextWidth[3][\normalfont]{{#1
+  \settowidth{#2}{abcdefghijklmnopqrstuvwxyz}
+  \setlength{#2}{0.03193#2}
+  \addtolength{#2}{0.44961pt}
+  \setlength{#2}{#3#2}
+  \global#2=#2}}
+
+\newlength\bringhurstwdt
+\GetTextWidth{\bringhurstwdt}{66}
+
+\usepackage{nextpage}                             % provides additional commands
+
+\usepackage{geometry}                             % provides page layout control
+\geometry{
+  twoside,                                        % defines a left / right page
+  footskip=\dimexpr(\footskip)*3,                 % threefold footer distance
+  textwidth=\bringhurstwdt,                       % textwidth calculated above
+  showframe=false                                 % for debugging: set true
+}
+
+\usepackage[automark, headsepline]{scrlayer-scrpage}
+  \ohead{\headmark}                               % outer header contains info
+  \automark[section]{section}                     % header into is section
+  \setkomafont{pagehead}{\upshape\sffamily}       % header font is sans serif
+
+% The following magic creates the cool vertical bar page numbers
+% see www.komascript.de/howto_paginationseparationinfoot
+\newcommand*{\pagenumberseparatorline}{%
+  \raisebox{0pt}[0pt][0pt]{%
+    \rule[-\dimexpr\paperheight-(1in+\topmargin+\headheight+\headsep+
+    \textheight+\footskip)]
+    {0.5pt}
+    {\dimexpr\paperheight-(1in+\topmargin+\headheight+\headsep+
+    \textheight+\footskip)+\footheight-\dp\strutbox}%
+  }%
+}
+\lefoot*{%
+  \makebox[0pt][r]{%
+    \pagemark
+    \makebox[\dp\strutbox][l]{\nobreakspace\pagenumberseparatorline}%
+  }%
+}
+\rofoot*{%
+  \makebox[0pt][l]{%
+    \makebox[\dp\strutbox][r]{\pagenumberseparatorline\nobreakspace}%
+    \pagemark
+  }%
+}
+
+\usepackage{marginnote}                           % provides better margin notes
+  \renewcommand*{\marginfont}{\color{s-cyan}\sffamily}
+
+% ┌────────────────────────────────────────────────────────────────────────────┐
+% │ COLOURS AND GRAPHICS                                                       │
+% └────────────────────────────────────────────────────────────────────────────┘
+
+\usepackage{chngcntr}
+  \counterwithout{figure}{chapter}                % figures are cont. numbered
+  \counterwithout{table}{chapter}                 %  tables are cont. numbered
+
+\usepackage{graphicx}                             % provides figure management
+% \graphicspath{{./Figures/}}                     % defines figure location
+
+\usepackage[dvipsnames, table]{xcolor}            % provides color management
+% \definecolor{c_white}{HTML}{f2ece4}             % light yellow for page color
+% \definecolor{c_gold}{HTML}{dbb677}              % gold for rules and bullets
+% \definecolor{c_red}{HTML}{58180d}               % red for section titles
+% \definecolor{c_green}{HTML}{e0e5c1}             % green for table rows
+\usepackage[prefix=s-]{xcolor-solarized}          % provides solarized color pal
+
+\usepackage[skins]{tcolorbox}                     % provides colored boxes
+  \newtcbox\tcbib{frame empty, hbox, on line, sharp corners,
+  colback=s-base01!10, right=1ex, left=1ex, top=-1pt,
+  bottom=\dimexpr-\dp\strutbox+1pt}
+
+\usepackage{calc}                                 % provides adv. calculcations
+\usepackage{tikz}                                 % provides vector drawings
+  \tikzset{every picture/.style={/utils/exec={\sffamily}}}
+  \usetikzlibrary{calc}                           % for coordinate calculation.
+
+\usepackage{epstopdf}
+  \epstopdfsetup{update}
+
+% ┌────────────────────────────────────────────────────────────────────────────┐
+% │ FONTS AND TYPES                                                            │
+% └────────────────────────────────────────────────────────────────────────────┘
+
+\usepackage[main=english, german]{babel}          % provides language encoding
+\usepackage[T1]{fontenc}                          % provides font encoding
+\usepackage[utf8]{inputenc}                       % provides input encoding
+\usepackage{lmodern}                              % provides Latin Modern fonts
+\usepackage{microtype}                            % typographical perfection
+\usepackage[defaultlines = 2, all]{nowidow}       % prevents widows and orphans
+\usepackage{siunitx}                              % typesets physical quantities
+
+% ┌────────────────────────────────────────────────────────────────────────────┐
+% │ MATHS                                                                      │
+% └────────────────────────────────────────────────────────────────────────────┘
+
+\usepackage{amsmath}
+  \renewcommand{\theequation}{\arabic{equation}}
+\usepackage{amssymb}
+\usepackage{amstext}
+
+\usepackage{aligned-overset}
+\usepackage{nicefrac}
+\usepackage{cancel}
+
+% ┌────────────────────────────────────────────────────────────────────────────┐
+% │ REFERENCES AND BIBLIOGRAPHY                                                │
+% └────────────────────────────────────────────────────────────────────────────┘
+
+\usepackage[comma, sort, square]{natbib}          % provides citation management
+  \setcitestyle{aysep={}}                         % no sep between Author & Name
+\usepackage[
+  bookmarks,                                      % create PDF bookmarks
+  bookmarksopen=true,                             % unfold bookmarks in viewer
+  bookmarksopenlevel=1,                           % level of unfolding (section)
+  bookmarksnumbered=true,                         % number PDF bookmarks
+  hidelinks,                                      % do not highlight hyperlinks
+  colorlinks=true,                                % color hyperlinks
+  citecolor=s-base01,                             % color of citations
+  linkcolor=black,                                % color of hyperlinks
+  urlcolor=s-base01,                              % color of urls
+  pdfpagelabels=true,                             % see manual…
+  plainpages=false,                               % see manual…
+  hyperindex=true,                                % index entries link to text
+  linktoc=all                                     % section & page are hyperlink
+]{hyperref}                                       % provides automatic hyperlink
+
+\usepackage[nameinlink, noabbrev]{cleveref}       % better ref and link control
+
+% The following magic creates the cool key listings in the bibliography
+% see tex.stackexchange.com/questions/152712
+\makeatletter
+\def\@lbibitem[#1]#2{%
+\hypersetup{citecolor=black}
+    \if\relax\@extra@b@citeb\relax\else
+    \@ifundefined{br@#2\@extra@b@citeb}{}{%
+    \@namedef{br@#2}{\@nameuse{br@#2\@extra@b@citeb}}}\fi
+  \@ifundefined{b@#2\@extra@b@citeb}{\def\NAT@num{}}{\NAT@parse{#2}}%
+  \item[\hfil\hyper@natanchorstart{#2\@extra@b@citeb}
+    \sffamily\tcbib{\strut\citealp{#2}}%
+  \hyper@natanchorend]%
+  \NAT@ifcmd#1(@)(@)\@nil{#2}}
+\makeatother
+
+% ┌────────────────────────────────────────────────────────────────────────────┐
+% │ TABLES AND LISTINGS                                                        │
+% └────────────────────────────────────────────────────────────────────────────┘
+
+\usepackage{tabularx}                             % provides auto table width
+\usepackage{multirow}                             % provides column and row span
+\usepackage{booktabs}                             % provides better table design
+
+\usepackage{tcolorbox}                            % provides better textboxes
+
+\usepackage{blindtext}                            % provides better lorem ipsum

@@ -1,0 +1,57 @@
+% ┌────────────────────────────────────────────────────────────────────────────┐
+% │ SECTIONS, FONTS, AND SIZES                                                 │
+% └────────────────────────────────────────────────────────────────────────────┘
+
+% places chapter, section, and subsection numbers in the margins
+\newcommand*\marginnumber[1]{\makebox[0pt][r]{\makebox[1.5cm][c]{#1}}}
+\renewcommand*\chapterformat{\marginnumber{\thechapter\autodot}}
+\renewcommand*\sectionformat{\marginnumber{\thesection\autodot}}
+\renewcommand*\subsectionformat{\marginnumber{\thesubsection\autodot}}
+
+\RedeclareSectionCommand[
+%  beforeskip=\baselineskip,
+  afterskip=\bigskipamount,
+  afterindent=false,
+  font=\fontsize{22}{26.4}\color{s-blue}\sffamily\bfseries
+]{chapter}
+\RedeclareSectionCommand[
+  beforeskip=\baselineskip,
+  afterskip=\bigskipamount,
+  afterindent=false,
+  font=\fontsize{18}{21.6}\color{s-blue}\sffamily\bfseries
+]{section}
+\RedeclareSectionCommand[
+  beforeskip=\baselineskip,
+  afterskip=\medskipamount,
+  afterindent=false,
+  font=\fontsize{14}{16.8}\color{s-blue}\sffamily\bfseries
+]{subsection}
+  \RedeclareSectionCommand[
+  beforeskip=\baselineskip,
+  afterskip=\smallskipamount,
+  afterindent=false,
+  font=\sffamily\bfseries
+]{subsubsection}
+
+% The following magic creates the cool chapter headings
+% see tex.stackexchange.com/questions/298491
+\RedeclareSectionCommand[
+  beforeskip=\dimexpr3.3\baselineskip+1\parskip\relax,
+  innerskip=0pt,             % space between chapter number and chapter title
+% afterskip=1.725\baselineskip plus .115\baselineskip minus .192\baselineskip
+]{chapter}
+\renewcommand\raggedchapter{\raggedleft}
+\renewcommand\chapterformat{{\fontsize{80pt}{80pt}\selectfont\textcolor{gray!25}
+  {\thechapter}}}
+\renewcommand\chapterlineswithprefixformat[3]{%
+  #2#3%
+  \vspace*{-.5\baselineskip} % adjust the space between the chapter and the rule
+  \rule{\textwidth}{.5pt}\par\nobreak
+}%
+
+\setkomafont{caption}{\footnotesize}
+\setkomafont{captionlabel}{\footnotesize\bfseries}
+
+% ┌────────────────────────────────────────────────────────────────────────────┐
+% │ MACROS                                                                     │
+% └────────────────────────────────────────────────────────────────────────────┘

@@ -1,0 +1,35 @@
+\pagestyle{empty}
+
+\begin{tikzpicture}[overlay, remember picture]
+
+\node (title) [align=left, black!65] at ($(current page.center)+(0,-3.75)$) {
+  {\fontsize{36}{43.2} {\fontfamily{qcs}\selectfont
+    \textcolor[HTML]{4b7c94}{REGRESSION MODELS}
+    }} \\[1.25\baselineskip]
+  {\fontsize{24}{28.8} {\fontfamily{qcs}\selectfont For High-Dimensional,
+    Biological Data}} \\[0.5\baselineskip]
+  % {\fontsize{24}{28.8} {\fontfamily{qcs}\selectfont posable Elements in the
+  %   Human Genome}}
+};
+
+\node (logo) at (title.text |- 0,0) [align=left, anchor=west] {
+  \includegraphics[scale=2]{04_GraphicFiles/UoC_Logo_Grey}
+  };
+
+\node (info) at (title.text |- 0,-18) [align=left, anchor=north west, black!65] {
+  {\fontsize{16}{19.2} {\fontfamily{qcs}\selectfont Till Baar}}
+    \\[\baselineskip]
+  {\fontsize{14}{16.8} {\fontfamily{qcs}\selectfont Institute of Medical
+    Statistics and Computational Biology}} \\[0.25\baselineskip]
+  {\fontsize{14}{16.8} {\fontfamily{qcs}\selectfont Faculty of Medicine,
+    University of Cologne}}\\[\baselineskip]
+  {\fontsize{14}{16.8} {\fontfamily{qcs}\selectfont\textsc{Thesis Supervisor}}}
+    \\ \rule[1ex]{8.75cm}{0.5pt} \\
+  {\fontsize{14}{16.8} {\fontfamily{qcs}\selectfont Prof. Dr. Achim Tresch}}
+    \\[\baselineskip]
+  {\fontsize{14}{16.8} {\fontfamily{qcs}\selectfont\textsc{Second Supervisor}}}
+    \\ \rule[1ex]{8.75cm}{0.5pt } \\
+  {\fontsize{14}{16.8} {\fontfamily{qcs}\selectfont Prof. Dr. Andreas Beyer}}
+};
+
+\end{tikzpicture}

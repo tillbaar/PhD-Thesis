@@ -1,0 +1,68 @@
+% This is my first TikZ drawing ever, to bare with me.
+% see: latexdraw.com/how-to-create-a-beautiful-cover-page-in-latex-using-tikz
+
+\pagestyle{empty}
+
+\begin{tikzpicture}[overlay, remember picture]
+
+\fill[s-base01!10]
+  (current page.south west) rectangle (current page.north east);
+
+\shade[left color=lightgray, right color=Periwinkle!40,
+  transform canvas={rotate around={45:($(current page.north west)+( 6,1)$)}}]
+  ($(current page.north west)+( 6,1)$) rectangle ++(-9,1.5);
+
+\shade[left color=lightgray, right color=white, rounded corners=0.75cm,
+  transform canvas={rotate around={45:($(current page.north west)+(10,1)$)}}]
+  ($(current page.north west)+(10,1)$) rectangle ++(-15,1.5);
+
+\shade[left color=lightgray, right color=white, rounded corners=0.375cm,
+  transform canvas={rotate around={45:($(current page.north west)+(12.5,1)$)}}]
+  ($(current page.north west)+(12.5,1)$) rectangle ++(-9,0.75);
+
+\shade[left color=RedViolet!30, right color=RedViolet!10, rounded
+  corners=0.75cm,
+  transform canvas={rotate around={45:($(current page.north west)+(16,1)$)}}]
+  ($(current page.north west)+(16,1)$) rectangle ++(-15,1.5);
+
+\shade[left color=lightgray, right color=Periwinkle!40, rounded corners=0.75cm,
+  transform canvas={rotate around={45:($(current page.north west)+(20,1)$)}}]
+  ($(current page.north west)+(20,1)$) rectangle ++(-24,1.5);
+
+\shade[left color=lightgray, right color=white, rounded corners=0.75cm,
+  transform canvas={rotate around={45:($(current page.north west)+(24,1)$)}}]
+  ($(current page.north west)+(24,1)$) rectangle ++(-15,1.5);
+
+\shade[left color=lightgray, rounded corners=0.375cm,
+  transform canvas={rotate around={45:($(current page.north west)+(26,1)$)}}]
+  ($(current page.north west)+(26,1)$) rectangle ++(-12,0.75);
+
+\shade[left color=lightgray, rounded corners=0.25cm,
+   transform canvas={rotate around={45:($(current page.north west)+(27,1)$)}}]
+  ($(current page.north west)+(27,1)$) rectangle ++(-10.5,0.5);
+
+\shade[left color=lightgray, right color=white, rounded corners=0.75cm,
+  transform canvas={rotate around={45:($(current page.north west)+(30,1)$)}}]
+  ($(current page.north west)+(30,1)$) rectangle ++(-13.5,1.5);
+
+\node (title) [align=left, black!65] at ($(current page.center)+(0,-3.75)$) {
+  {\fontsize{36}{43.2} {\fontfamily{qcs}\selectfont
+    \textcolor[HTML]{4b7c94}{REGRESSION MODELS}
+    }} \\[1.25\baselineskip]
+  {\fontsize{24}{28.8} {\fontfamily{qcs}\selectfont for High-Dimensional,
+    Biological Data}} \\[0.5\baselineskip]
+  % {\fontsize{24}{28.8} {\fontfamily{qcs}\selectfont Biological Data}}
+};
+
+\node at ($(title.south)!0.5!(current page.south)$,0) [align=center]{
+  \includegraphics[scale=2]{04_GraphicFiles/UoC_Logo}
+  };
+
+\draw[ultra thick, black!65] ($(current page.east)+(-4.5,+4.5)$) -- ++(0,-3cm)
+  node[midway, right=0.25cm, align=left, black!75, text width=4.5cm]{
+    {\fontsize{16}{19.2} {\fontfamily{qcs}\selectfont \\
+    \textcolor[HTML]{4b7c94}{PhD Thesis}
+    \\[0.25\baselineskip] Till Baar \\[0.25\baselineskip] 2022 \\}}
+  };
+
+\end{tikzpicture}
