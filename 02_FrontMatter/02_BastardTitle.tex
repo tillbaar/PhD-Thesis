@@ -1,12 +1,15 @@
 \pagestyle{empty}
 
+\begingroup
+\fontfamily{lmr}\selectfont
+
 \begin{tikzpicture}[overlay, remember picture]
 
 \node (title) [align=left, black!65] at ($(current page.center)+(0,-3.75)$) {
   {\fontsize{36}{43.2} {\fontfamily{qcs}\selectfont
     \textcolor[HTML]{4b7c94}{REGRESSION MODELS}
     }} \\[1.25\baselineskip]
-  {\fontsize{24}{28.8} {\fontfamily{qcs}\selectfont For High-Dimensional,
+  {\fontsize{24}{28.8} {\fontfamily{qcs}\selectfont for High-Dimensional,
     Biological Data}} \\[0.5\baselineskip]
   % {\fontsize{24}{28.8} {\fontfamily{qcs}\selectfont posable Elements in the
   %   Human Genome}}
@@ -33,3 +36,4 @@
 };
 
 \end{tikzpicture}
+\endgroup

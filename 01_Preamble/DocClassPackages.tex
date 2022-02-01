@@ -51,7 +51,7 @@
 
 \usepackage[automark, headsepline]{scrlayer-scrpage}
   \ohead{\headmark}                               % outer header contains info
-  \automark[section]{section}                     % header into is section
+  \automark[section]{section}                     % header info is section
   \setkomafont{pagehead}{\upshape\sffamily}       % header font is sans serif
 
 % The following magic creates the cool vertical bar page numbers
@@ -120,10 +120,14 @@
 \usepackage[T1]{fontenc}                          % provides font encoding
 \usepackage[utf8]{inputenc}                       % provides input encoding
 \usepackage{lmodern}                              % provides Latin Modern fonts
+\usepackage[lining, light, semibold]{CrimsonPro}  % provides CrimsonPro font
 \usepackage{microtype}                            % typographical perfection
 \usepackage[defaultlines = 2, all]{nowidow}       % prevents widows and orphans
 \usepackage{siunitx}                              % typesets physical quantities
 
+\usepackage{csquotes}                             % provides quotation marks
+  \setquotestyle[american]{english}
+  
 % ┌────────────────────────────────────────────────────────────────────────────┐
 % │ MATHS                                                                      │
 % └────────────────────────────────────────────────────────────────────────────┘
