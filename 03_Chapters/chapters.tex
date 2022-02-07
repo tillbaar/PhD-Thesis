@@ -2,7 +2,7 @@
 % │ INTRODUCTION                                                               │
 % └────────────────────────────────────────────────────────────────────────────┘
 
-\chapter{Introduction}
+\chapter{Introduction}\label{chap:introduction}
 \sectionmark{Introduction} % This sets the outer header mark to "Introduction"
 %                          % until the first section is begun.
 
@@ -50,11 +50,11 @@ variance fails to generalise and cannot make accurate predictions.
 % To reduce the vertical spacing between the align environment and the
 % following text, use \shortintertext instead of \intertext for the last
 % paragraph and follow the align environment with the command:
-% \vspace{-\the\belowdisplayshortskip} to remove unnecessary space.
+% \vspace{-\the\belowdisplayskip} to remove unnecessary space.
 % ──────────────────────────────────────────────────────────────────────
 % Ugly, I know, but it works and doesn't require too much effort.
 
-\vspace{-\the\belowdisplayshortskip}
+\vspace{-\the\belowdisplayskip}
 \noindent In other words, a model that does not capture the pattern from which 
 the observations emerge is underfitted, usually exhibiting high bias and low 
 variance. Vice versa, a model that captures the noisiness of the observations
@@ -73,13 +73,14 @@ To approach the optimal model, commonly used methods are regularisation,
 boosting, and bagging.
 \bigbreak
 
-\noindent Regularisation \marginnote{Regularisation} aims to mitigate the 
-problem of overfitting common to overcomplex models \citep{Deisenroth2020}. 
-Assume again a model that predicts $f\!\left(X\right)$ and possesses many 
-parameters $\theta_1\dots\theta_n$. Its associated loss function $V$ governs 
-the training of the model \citep{Rosasco2003}. Regularisation adds a 
-regularisation term or regulariser $R$ to the loss function that penalises 
-complexity of the model. Thus, the expression to be minimised becomes
+\noindent Regularisation \marginnote{Regularisation}\label{mar:regularisation} 
+aims to mitigate the problem of overfitting common to overcomplex models
+\citep {Deisenroth2020}. Assume again a model that predicts $f\!\left(X\right)$
+and possesses many parameters $\theta_1\dots\theta_n$. Its associated loss 
+function $V$ governs the training of the model \citep{Rosasco2003}. 
+Regularisation adds a regularisation term or regulariser $R$ to the loss 
+function that penalises complexity of the model. Thus, the expression to be 
+minimised becomes
 \begin{align*}
   \min_{\widehat{f}}\sum_{i=1}^n
   V\!\left(\widehat{f}\!\left(x_i\right),f\!\left(x_i\right)\right)+
@@ -123,19 +124,18 @@ regularisation; and if $\lambda_{1}>0$ and $\lambda_{2}>0$, a combination of
 both is applied.
 \bigbreak
 
-\noindent While \marginnote{Boosting} regularisation is a helpful method to 
-deal with overcomplex models, boosting addresses the problem of poor models in 
-more general terms \citep{Freund1999}; a \textquotesingle{}poor 
-model\textquotesingle{}, in this case, refers to a weak learner. 
-\citet{Valiant} formalised the concept of learnability in the context of 
-computational complexity theory and introduced the probably approximately 
-correct (PAC) model. A problem is PAC-learnable if there exists a model that, 
-with a chance higher than a threshold $\delta$, will arrive at a solution with 
-a generalisation error smaller than a threshold $\epsilon$. Generalisation 
-error or out-of-sample error refers to a model's predictive performance on 
-previously unseen data \citep{Bousquet2004}. A model satisfying these 
-conditions for any given problem is called a strong learner, while a model 
-that does not is a weak learner.
+\noindent While \marginnote{Boosting}\label{mar:boosting} regularisation is a 
+helpful method to deal with overcomplex models, boosting addresses the problem 
+of poor models in more general terms \citep{Freund1999}; a \tqs{poor model}, 
+in this case, refers to a weak learner. \citet{ Valiant} formalised the 
+concept of learnability in the context of computational complexity theory and 
+introduced the probably approximately correct (PAC) model. A problem is PAC-
+learnable if there exists a model that, with a chance higher than a threshold
+$\delta$, will arrive at a solution with a generalisation error smaller than a 
+threshold $\epsilon$. Generalisation error or out-of-sample error refers to a 
+model's predictive performance on previously unseen data \citep{Bousquet2004}. 
+A model satisfying these conditions for any given problem is called a strong 
+learner, while a model that does not is a weak learner.
 
 A problem can benefit from boosting if applying a strong learner is either 
 impossible, as no strong learner exists, or disadvantageous, for example, 
@@ -150,25 +150,25 @@ While \citet{Kearns} defined weak learners as models that perform just
 slightly better than random guessing, \citet{Schapire1990} demonstrated their 
 power if applied correctly, proving that any problem solvable by a strong 
 learner is equally solvable by a collection of weak learners: the hypothesis 
-boosting mechanism. The term \textquotesingle{}hypothesis\textquotesingle{} 
-here describes the solution a model arrives at after training, the model's 
-final parameters. \citet{Freund1995} improved this further, combining many 
-weak learners and using their combined results to arrive at a strong 
-prediction, one weak learner effectively compensating for the shortcomings of 
-another. The next step was AdaBoost, adaptive boosting, for which Freund and 
-Schapire were awarded the Gödel Prize in 2003 \citep{Freund1997}. This 
-boosting variant scales each weak learner's influence on the final prediction 
-depending on their own error. The current state-of-the-art boosting technique 
-is gradient boosting with its predominant implementation XGBoost 
-\citep{Chen2016}. In contrast to AdaBoost, which always minimises the 
-exponential loss function, gradient boosting can use any differentiable loss 
-function, which makes it adaptable to many classification and regression tasks.
+boosting mechanism. The term \tqs{hypothesis} here describes the solution a 
+model arrives at after training, the model's final parameters. \citet{
+Freund1995} improved this further, combining many weak learners and using 
+their combined results to arrive at a strong prediction, one weak learner 
+effectively compensating for the shortcomings of another. The next step was 
+AdaBoost, adaptive boosting, for which Freund and Schapire were awarded the 
+Gödel Prize in 2003 \citep{Freund1997}. This boosting variant scales each weak 
+learner's influence on the final prediction depending on their own error. The 
+current state-of-the-art boosting technique is gradient boosting with its 
+predominant implementation XGBoost \citep{Chen2016}. In contrast to AdaBoost, 
+which always minimises the exponential loss function, gradient boosting can 
+use any differentiable loss function, which makes it adaptable to many 
+classification and regression tasks.
 
 Following an example by \citet{Li}, assume again a model
-$\widehat{f}\!\left( X \right)$. The boosting model iterates over
-$M$\vphantom{$\widehat{f}$} stages, and each stage $m$ has an associated
-imperfect model $\widehat{f}\!\left( X \right)_{m}$, so that at each stage, a
-new \textquotesingle{}hypothesis\textquotesingle{} is added, a new estimator
+$\widehat{f}\!\left(X\right)$. The boosting model iterates over $M$ stages, 
+and each stage $m$ has an associated imperfect model
+$\widehat{f}\!\left(X\right)_{m}$, so that at each stage, a new
+\tqs{hypothesis} is added, a new estimator
 $\widehat{g}\left(X\right)_{m}$\vphantom{$\widehat{f}$}.
 \begin{align*}
   \widehat{f}\!\left(X\right)_{m+1}&=\widehat{f}\!\left(X\right)_{m}+
@@ -183,14 +183,63 @@ In this fashion, each new stage $m+1$ attempts to correct for the errors made
  by the previous stage $m$.
 \bigbreak
 
-\noindent While \marginnote{Bagging} regularisation
+\noindent While \marginnote{Bagging}\label{mar:bagging} regularisation is an
+ensemble method that addresses shortcomings of the model, bagging can be
+regarded as addressing shortcomings of the data \citep{Breiman1996}. The name
+\tqs{bagging} derives from bootstrap aggregating. Bootstrapping is a
+resampling method that estimates statistics by sampling repeatedly from the
+same data \citep{Efron1994}. This process makes it possible to assess the
+accuracy of the estimated statistics, which can be assumed to be an adequate
+approximation if the empirical distribution of the data represents the true
+distribution reasonably well.
 
+Bagging applies the principle of bootstrapping to model training. Following an
+example by \citet{Aslam2007}, assume again a set of training data $Y\!$. From
+this data set, new training sets $Y_{i}$ are created by sampling uniformly
+from $Y\!$ with replacement, meaning that each individual entry in $Y\!$ has
+the same probability of being drawn and can be drawn again and again.
+Individual models are then trained on the new training sets $Y_{i}$, and their
+predictions are combined, either by averaging for regression or voting for
+classification (see \nameref{subsec:regclas} below). Bagging is especially
+useful for unstable models that can react drastically to small changes in the
+training data.
 
+\subsubsection{Regression and Classification}\label{subsec:regclas}
+While the variety of mathematical models seems almost endless, the models
+employed in the publications that comprise this thesis belong predominantly to
+the field of machine learning. These algorithms encompass models that use
+sample or training data to learn and make predictions \citep{Mitchell}.
+Machine learning can be divided into three main approaches, unsupervised and
+supervised learning, and reinforcement learning. This third category covers
+the behaviour of intelligent agents that interact with the environment and is
+of only marginal interest to the topics at hand \citep{Joshi2021a}.
 
-\vspace{5cm}
-\subsubsection{Regression}
+Unsupervised \marginnote{Supervised and Unsupervised Learning}\label{%
+mar:supunsup} learning differs from supervised learning by the type of
+training data required \citep{Hinton1999}. Unsupervised  models are not
+reliant on labelled data, meaning data that has been annotated by humans or
+other models. Instead, unsupervised learning aims to build an internal
+representation of the space it operates in and capture previously known
+patterns according to that representation. Some prominent examples of
+unsupervised learning include clustering \citep{Rokach2005}, dimensionality
+reduction \citep{VanDerMaaten2009}, and outlier detection \citep{Hawkins1980}.
+Supervised learning, on the other hand, does require labelled data. Its goal
+is to find a function that maps input variables to output variables as best as
+possible, or in other words, to train a model so that it predicts an outcome
+as best as possible, given a set of corresponding observations \citep{%
+Mohri2018}. Some prominent examples for supervised learning include Bayesian 
+inference \citep{Gelman2014}, decision trees \citep{Kaminski2018}, and support 
+vector machines \citep{Cortes1995}. Most of the methods discussed in detail
+prior to the included publications are supervised.
 
-\section{Method Overview}
+Supervised learning is commonly further subdivided into two fields of
+application: regression and classification. While regression predicts a
+numerical (i.e., continuous) outcome, classification predicts a discrete class
+labels \citep{James2009}.
+
+\subsubsection{Peculiarities of Biological Data}\label{subsec:biodata}
+
+% \section{Method Overview}
 
 
 
@@ -255,7 +304,8 @@ In this fashion, each new stage $m+1$ attempts to correct for the errors made
   
   \smallskip
   \href{http://www.overleaf.com}
-    {Evolution shapes the RNA metabolism of Alu retrotransposons}
+    {RNA transcription and degradation of Alu retrotransposons depends on
+    sequence features and evolutionary history}
 
   \smallskip
   \textit{Seminars in cell \& developmental biology, 22(1):39–47.}
@@ -327,7 +377,7 @@ In this fashion, each new stage $m+1$ attempts to correct for the errors made
 % │ END                                                                        │
 % └────────────────────────────────────────────────────────────────────────────┘
 
-\chapter{Introduction}
+\chapter*{Introduction}
 An amalgamation of technological advancement and sophisticated magic offers many 
 amenities to the people of Ravnica (amenities that would be extraordinary to
 folk in more common fantasy settings). Almost all residential areas of the city
@@ -338,7 +388,7 @@ public transport system, making every part of the city easily reachable.
 t_{\nicefrac{1}{2}}=\frac{\ln\left(2\right)}{\delta}
 \end{align*}
 
-\section{Section}
+\section*{Section}
 Even poorer neighbourhoods boast clean and smooth roads and sturdy construction.
 No one needs to go hungry in Ravnica, because the Golgari Union provides a bare
 minimum of  sustenance to anyone who can't afford better food, though it is best
@@ -356,7 +406,7 @@ Diversions and entertainments abound, including raucous street-side theatre,
 operas and symphonies, illegal fight clubs, sporting events held in vast
 arenas, throwaway popular novels, and great works of literature.
 
-\subsection{Subsection}
+\subsection*{Subsection}
 These things are shared by the city's diverse peoples, who enjoy a life adorned
 by a variety of  species, gender identities, and sexual orientations.
 Well-established systems undergird society, largely through the efforts of the
@@ -371,7 +421,7 @@ of education and public health, as well as local public transport, while the
 Simic Combine sees to the biological maintenance and improvement of all
 citizens. \marginnote{This is a note}
 
-\subsubsection{Subsubsection}
+\subsubsection*{Subsubsection}
 Few parts of Ravnica could be considered wilderness. There exist abandoned sites
 where the infrastructure lies in ruins, partially reclaimed by natural forces.
 These are the only truly wild areas of the city, but even those do not last
@@ -409,7 +459,7 @@ of education and public health, as well as local public transport, while the
 Simic Combine sees to the biological maintenance and improvement of all
 citizens.
 
-\chapter{Methods}
+\chapter*{Methods}
 These things are shared by the city's diverse peoples, who enjoy a life adorned
 by a variety of  species, gender identities, and sexual orientations.
 Well-established systems undergird society, largely through the efforts of the
@@ -514,7 +564,7 @@ of education and public health, as well as local public transport, while the
 Simic Combine sees to the biological maintenance and improvement of all
 citizens.
 
-\section{Half-Life Estimation}
+\section*{Half-Life Estimation}
 
 Explanation of how we come to model the degradation rate
 $\delta$\marginnote{Usually, degradation rate is denoted by $\lambda$ not
