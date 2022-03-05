@@ -90,7 +90,6 @@
   \counterwithout{table}{chapter}                 %  tables are cont. numbered
 
 \usepackage{graphicx}                             % provides figure management
-% \graphicspath{{./Figures/}}                     % defines figure location
 
 \usepackage[dvipsnames, table]{xcolor}            % provides color management
 % \definecolor{c_white}{HTML}{f2ece4}             % light yellow for page color
@@ -107,9 +106,9 @@
 \usepackage{calc}                                 % provides adv. calculcations
 \usepackage{tikz}                                 % provides vector drawings
   \tikzset{every picture/.style={/utils/exec={\sffamily}}}
-  \usetikzlibrary{calc}                           % for coordinate calculation.
+  \usetikzlibrary{calc}                           % for coordinate calculation
 
-\usepackage{epstopdf}
+\usepackage{epstopdf}                             % provides .eps embedding
   \epstopdfsetup{update}
 
 % ┌────────────────────────────────────────────────────────────────────────────┐
@@ -179,6 +178,8 @@
   \hyper@natanchorend]%
   \NAT@ifcmd#1(@)(@)\@nil{#2}}
 \makeatother
+
+\usepackage{pdfpages}                  % provided the inclusion of PDF documents
 
 % ┌────────────────────────────────────────────────────────────────────────────┐
 % │ TABLES AND LISTINGS                                                        │

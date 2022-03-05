@@ -1,0 +1,399 @@
+% ┌────────────────────────────────────────────────────────────────────────────┐
+% │ INTRODUCTION                                                               │
+% └────────────────────────────────────────────────────────────────────────────┘
+
+\chapter{Introduction}\label{chap:introduction}
+\sectionmark{Introduction} % This sets the outer header mark to "Introduction"
+%                          % until the first section is begun.
+
+\enquote{The temptation to form premature theories upon insufficient data is 
+the bane of our profession.} [Sherlock Holmes, \citealt{Holmes}]. This 
+statement applies not only to fictional consulting detectives but likewise to 
+the field of science. One might even say that it is an inherent tendency of 
+the human mind to jump to conclusions based on incomplete knowledge. Thus, it
+is the statistician's task to rigidify all conjectures made in the context of
+a scientific investigation and base them firmly on observations. This is, of
+course, easier said than done.
+
+In general, the art of the statistician, in contrast to purely technical 
+aspects, is to specify the model according to the data at hand. Upon contact 
+with data, every mathematical model suffers from the bias-variance tradeoff
+\citep{VonLuxburg2009}, i.e., a model needs to find the right balance between 
+overfitting (high variance) and underfitting (high bias). Bias, in this case, 
+describes the difference between a model's average predictions and the true 
+values. A model with high bias is oversimplified. Variance refers to the 
+variability of a model's predictions given the true values. A model with high 
+variance fails to generalise and cannot make accurate predictions.
+\begin{align*}
+  \intertext{Following an example by \citealt{James2009}, assume we wish to
+  predict an outcome $Y$ given observations $X=\left\{x_1\dots x_n\right\}$
+  with a relationship of}
+  Y =&\, f\!\left(X\right)+\varepsilon
+  \intertext{where $\varepsilon$ describes a normally distributed error term
+  with mean 0. Further assuming a model $\widehat{f}\!\left(X\right)$ of
+  $f\!\left(X\right)$, the expected squared error for a point $x$ becomes}
+  \operatorname{E}\left(x\right) =&\,
+    \operatorname{E}\left[\left(Y-\widehat{f}\!\left(x\right)\right)^2\right]
+  \intertext{with $\operatorname{E}$ denoting the expected value. This further
+  decomposes to}
+  \operatorname{E}\left(x\right) =& 
+     \underbracket{\vphantom{\left[\left(\widehat{f}\right)^2\right]}
+     \left(\operatorname{E}\left[\widehat{f}\!\left(x\right)\right]-
+      f\!\left(x\right)\right)^2}_{\text{Bias}^2}+
+      \underbracket{\operatorname{E}\left[\left(\widehat{f}\!\left(x\right)-
+      \operatorname{E}\left[\widehat{f}\!\left(x\right)\right]\right)^2\right]}
+      _{\text{Variance}}+
+      \,\sigma^2_\varepsilon
+  \shortintertext{where $\sigma^2_\varepsilon$ is the irreducible error,
+  i.e., the amount of inherent noise in the data that cannot be removed.}
+\end{align*}
+% To reduce the vertical spacing between the align environment and the
+% following text, use \shortintertext instead of \intertext for the last
+% paragraph and follow the align environment with the command:
+% \vspace{-\the\belowdisplayskip} to remove unnecessary space.
+% ──────────────────────────────────────────────────────────────────────
+% Ugly, I know, but it works and doesn't require too much effort.
+
+\vspace{-\the\belowdisplayskip}
+\noindent In other words, a model that does not capture the pattern from which 
+the observations emerge is underfitted, usually exhibiting high bias and low 
+variance. Vice versa, a model that captures the noisiness of the observations
+alongside the pattern is overfitted, usually exhibiting low bias and high
+variance.
+
+The bias-variance tradeoff is connected to the complexity of a model. A model 
+that is too simple and thus undercomplex for the data will underfit. This is 
+because it has too few parameters to model the data adequately. Conversely, a 
+model that is overcomplex will overfit, as it has too many parameters. Of
+course, one would hope to optimally balance each model's complexity, bias, and
+variance so to never over- or underfit, or at least come feasible close to
+this goal.
+
+To approach the optimal model, commonly used methods are regularisation,
+boosting, and bagging.
+\bigbreak
+
+\noindent Regularisation \marginnote{Regularisation}\label{mar:regularisation} 
+aims to mitigate the problem of overfitting common to overcomplex models
+\citep {Deisenroth2020}. Assume again a model that predicts $f\!\left(X\right)$
+and possesses many parameters $\theta_1\dots\theta_n$. Its associated loss 
+function $V$ governs the training of the model \citep{Rosasco2003}. 
+Regularisation adds a regularisation term or regulariser $R$ to the loss 
+function that penalises complexity of the model. Thus, the expression to be 
+minimised becomes
+\begin{align*}
+  \min_{\widehat{f}}\sum_{i=1}^n
+  V\!\left(\widehat{f}\!\left(x_i\right),f\!\left(x_i\right)\right)+
+  \lambda\:R\!\left(\widehat{f}\:\right)
+\end{align*}
+with the parameter $\lambda$ controlling the amount of regularisation that is
+applied.
+
+Two common applications of regularisation are the linear regression techniques 
+Ridge regression \citep{Hoerl1970} and Lasso regression \citep{Tibshirani1996}.
+While these can be extended to other statistical models, assume simple linear
+regression for the sake of demonstration. Both techniques add a regularisation
+term to the loss function that depends directly on the values of the model's
+parameters $\theta_i$
+\begin{align*}
+  \underset{\text{Ridge regression}}{
+    R\left(\theta_{i}\right)=\lambda\sum_{i=1}^{n}\theta_{\,i}^{\,2}
+  }
+  \quad\text{and}\quad
+  \underset{\text{Lasso regression}}{
+    R\left(\theta_{i}\right)=\lambda\sum_{i=1}^{n}\left|\,\theta_{\,i}\right|
+  }
+\end{align*}
+thus shrinking all but the most influential parameters of the model and 
+thereby reducing model complexity and multicollinearity \citep{Herawati2018}. 
+The difference between Ridge and Lasso regression lies in the calculation of 
+the applied penalty. While Ridge regression penalises the sum of the squared 
+coefficients (L2 penalty), Lasso regression penalises the sum of their 
+absolute values (L1 penalty). The ultimate consequence is that while Lasso can 
+shrink non-influential parameters to zero, Ridge cannot. On the other hand, 
+this can cause Lasso to eliminate important parameters under 
+multicollinearity, if predictor variables are correlated, as it tends to 
+select one parameter from the correlated group and ignore the rest.
+
+To overcome these limitations, a combination of Ridge and Lasso regression can 
+be applied, elastic net \citep{Zou2005}. The used regularisation technique 
+combines an L1 and an L2 penalty by using separate $\lambda$ parameters for 
+each, $\lambda_{1}$ and $\lambda_{2}$. If $\lambda_{1}=0$, the penalty equals 
+Ridge regularisation; if $\lambda_{2}=0$, the penalty equals Lasso 
+regularisation; and if $\lambda_{1}>0$ and $\lambda_{2}>0$, a combination of 
+both is applied.
+\bigbreak
+
+\noindent While \marginnote{Boosting}\label{mar:boosting} regularisation is a 
+helpful method to deal with overcomplex models, boosting addresses the problem 
+of poor models in more general terms \citep{Freund1999}; a \tqs{poor model}, 
+in this case, refers to a weak learner. \citet{ Valiant} formalised the 
+concept of learnability in the context of computational complexity theory and 
+introduced the probably approximately correct (PAC) model. A problem is PAC-
+learnable if there exists a model that, with a chance higher than a threshold
+$\delta$, will arrive at a solution with a generalisation error smaller than a 
+threshold $\epsilon$. Generalisation error or out-of-sample error refers to a 
+model's predictive performance on previously unseen data \citep{Bousquet2004}. 
+A model satisfying these conditions for any given problem is called a strong 
+learner, while a model that does not is a weak learner.
+
+A problem can benefit from boosting if applying a strong learner is either 
+impossible, as no strong learner exists, or disadvantageous, for example, 
+because the strong learner is prohibitively complex and thus underperformant, 
+or because the available training data is insufficient to apply it. While 
+current machine learning research, especially in the field of deep learning 
+\citep{LeCun2015}, mainly approaches the challenge of more complex problems by 
+fielding stronger algorithms, boosting seeks to improve the results of weak 
+learners.
+
+While \citet{Kearns} defined weak learners as models that perform just 
+slightly better than random guessing, \citet{Schapire1990} demonstrated their 
+power if applied correctly, proving that any problem solvable by a strong 
+learner is equally solvable by a collection of weak learners: the hypothesis 
+boosting mechanism. The term \tqs{hypothesis} here describes the solution a 
+model arrives at after training, the model's final parameters. \citet{
+Freund1995} improved this further, combining many weak learners and using 
+their combined results to arrive at a strong prediction, one weak learner 
+effectively compensating for the shortcomings of another. The next step was 
+AdaBoost, adaptive boosting, for which Freund and Schapire were awarded the 
+Gödel Prize in 2003 \citep{Freund1997}. This boosting variant scales each weak 
+learner's influence on the final prediction depending on their own error. The 
+current state-of-the-art boosting technique is gradient boosting with its 
+predominant implementation XGBoost \citep{Chen2016}. In contrast to AdaBoost, 
+which always minimises the exponential loss function, gradient boosting can 
+use any differentiable loss function, which makes it adaptable to many 
+classification and regression tasks.
+
+Following an example by \citet{Li}, assume again a model
+$\widehat{f}\!\left(X\right)$. The boosting model iterates over $M$ stages, 
+and each stage $m$ has an associated imperfect model
+$\widehat{f}\!\left(X\right)_{m}$, so that at each stage, a new
+\tqs{hypothesis} is added, a new estimator
+$\widehat{g}\left(X\right)_{m}$\vphantom{$\widehat{f}$}.
+\begin{align*}
+  \widehat{f}\!\left(X\right)_{m+1}&=\widehat{f}\!\left(X\right)_{m}+
+    \widehat{g}\left(X\right)_{m}
+  \intertext{As the model iterates over sets of training data
+  $Y_{i}=\left\{y_1\dots y_n\right\}$, the new estimator is fit to the
+  residual, the difference between the values of the training data $Y_{i}$ and
+  the estimation of the previous model.}
+  \widehat{g}\left(X\right)_{m}&=Y_{i}-\widehat{f}\!\left(X\right)_{m}
+\end{align*}
+In this fashion, each new stage $m+1$ attempts to correct for the errors made
+ by the previous stage $m$.
+\bigbreak
+
+\noindent While \marginnote{Bagging}\label{mar:bagging} regularisation is an
+ensemble method that addresses shortcomings of the model, bagging can be
+regarded as addressing shortcomings of the data \citep{Breiman1996}. The name
+\tqs{bagging} derives from bootstrap aggregating. Bootstrapping is a
+resampling method that estimates statistics by sampling repeatedly from the
+same data \citep{Efron1994}. This process makes it possible to assess the
+accuracy of the estimated statistics, which can be assumed to be an adequate
+approximation if the empirical distribution of the data represents the true
+distribution reasonably well.
+
+Bagging applies the principle of bootstrapping to model training. Following an
+example by \citet{Aslam2007}, assume again a set of training data $Y\!$. From
+this data set, new training sets $Y_{i}$ are created by sampling uniformly
+from $Y\!$ with replacement, meaning that each individual entry in $Y\!$ has
+the same probability of being drawn and can be drawn again and again.
+Individual models are then trained on the new training sets $Y_{i}$, and their
+predictions are combined, either by averaging for regression or voting for
+classification (see \nameref{subsubsec:regclas} below). Bagging is especially
+useful for unstable models that can react drastically to small changes in the
+training data.
+
+% ┌────────────────────────────────────────────────────────────────────────────┐
+% │ Regression and Classification                                              │
+% └────────────────────────────────────────────────────────────────────────────┘
+
+\subsubsection{Regression and Classification}\label{subsubsec:regclas}
+While the variety of mathematical models seems almost endless, the models
+employed in the publications that comprise this dissertation belong
+predominantly to the field of machine learning. These algorithms encompass
+models that use sample or training data to learn and make predictions \citep{%
+Mitchell}. Machine learning can be divided into three main approaches,
+unsupervised and supervised learning, and reinforcement learning. This third
+category covers the behaviour of intelligent agents that interact with the
+environment and is of only marginal interest to the topics at hand \citep{%
+Joshi2021a}.
+
+Unsupervised \marginnote{Supervised and Unsupervised Learning}\label{%
+mar:supunsup} learning differs from supervised learning by the type of
+training data required \citep{Hinton1999}. Unsupervised  models are not
+reliant on labelled data, meaning data that has been annotated by humans or
+other models. Instead, unsupervised learning aims to build an internal
+representation of the space it operates in and capture previously known
+patterns according to that representation. Some prominent examples of
+unsupervised learning include clustering \citep{Rokach2005}, dimensionality
+reduction \citep{VanDerMaaten2009}, and outlier detection \citep{Hawkins1980}.
+Supervised learning, on the other hand, does require labelled data. Its goal
+is to find a function that maps input variables to output variables as best as
+possible, or in other words, to train a model so that it predicts an outcome
+as best as possible, given a set of corresponding observations \citep{%
+Mohri2018}. Some prominent examples for supervised learning include Bayesian 
+inference \citep{Gelman2014}, decision trees \citep{Kaminski2018}, and support 
+vector machines \citep{Cortes1995}. Most of the methods discussed in detail
+prior to the included publications are supervised.
+
+Supervised learning is commonly further subdivided into two fields of
+application: regression and classification. While regression predicts a
+numerical (i.e., continuous) outcome, classification predicts discrete class
+labels \citep{James2009}.
+
+% ┌────────────────────────────────────────────────────────────────────────────┐
+% │ Peculiarities of Biological Data                                           │
+% └────────────────────────────────────────────────────────────────────────────┘
+
+\subsubsection{Peculiarities of Biological Data}\label{subsubsec:biodata}
+As an empirical and descriptive discipline, the life sciences, and biology, in
+particular, are founded on data. The nature of this information is thus vital
+to all scientific enquiries in the field. Following the introductions by
+\citet{Jagadish2003} and \citet{Wooley2006}, biological data can be broadly
+classified into the following types.
+\medbreak
+
+\noindent
+Biological\marginnote{Spatial Data}\label{mar:dataspatial} systems, from
+strands of DNA in the nucleus of a cell to animal migrations taking place over
+thousands of kilometres, are three-dimensional in nature and therefore carry
+spatial information. Measuring and encoding the differences between one region
+and another in machine-readable form is thus instrumental. Scalar and vector
+fields can be seen as an extension of this, as they encode phenomena that are
+continuous in space, such as biochemical properties like concentration
+gradients or population densities.
+\medbreak
+
+\noindent
+Sequence data\marginnote{Sequence Data}\label{mar:dataseq} is currently one of
+the most abundant forms of biological information and arguable responsible for
+the vast majority of progress in the field over the last decades. The amount
+of available DNA and RNA sequences is also increasing ever more quickly with
+the development of novel technology, such as single-cell sequencing \citep{%
+Wang2015} and spatial genomics \citep{Turczyk2020}. While these two techniques
+further explore the genetic organisation on the level of individual cells,
+another approach called metagenomics analyses all sequences present in an
+ecosystem \citep{Venter2004,Hugenholtz2008}. Sequence data can be generalised
+as strings representing the DNA or RNA bases, including gaps.
+\medbreak
+
+\noindent
+Within\marginnote{Patterns}\label{mar:datapatterns} DNA and RNA sequences lie
+patterns that represent functional units, such as genes in the genome,
+functional elements like promoters and enhancers \citep{Kim2015a}, or
+restriction sites \citep{Smith1976}. Patterns can be encoded as context-free
+grammars \citep{Hopcroft2001}, Hidden Markov Models (HMMs) \citep{Stamp2021},
+or regular expressions \citep{Wang2019}.
+\medbreak
+
+\noindent
+Another\marginnote{Models}\label{mar:datamodels} type of information that can
+be regarded as biological data are the mathematical models created to analyse
+experimental measurements. With the increasing number of publications, the
+models contained therein, their structure and parameters, need to be machine-
+readable to facilitate comparisons.
+\medbreak
+
+\noindent
+Images\marginnote{Images}\label{mar:dataimages} originating from electron and
+optical microscopy, radiography, and other methods, as well as videos, are
+another type of data that is especially difficult to convert into a machine-%
+readable form. While storing the raw data digitally is trivial, extracting the
+features contained in the recordings is not and has spawned the
+interdisciplinary field of computer vision \citep{Ballard1982}.
+\medbreak
+
+\noindent
+Relationships\marginnote{Graphs}\label{mar:datagraphs} such as biochemical and
+signalling pathways and phylogenetic trees can be represented as graphs, along
+with gene regulatory networks and laboratory workflows. Even sequence data can
+be presented in a graph structure to efficiently encode DNA and RNA sequences
+variability between individuals \citep{Novak2017}. Geometric arrangements such
+as the three-dimensional shape of proteins that governs their docking
+behaviour can also be rendered in graph-form.
+\medbreak
+
+\noindent
+Finally,\marginnote{Prose}\label{mar:dataprose} the literature itself is a
+form of data, and the annotations, hypotheses, and inferences stated in
+continuous text are difficult to translate into machine-readable form, as well
+\citep{Balyan2017}.
+\bigbreak
+
+\noindent
+As should become clear from this diverse list, biological data can be very
+heterogeneous, which can further complicate its analysis, as models may need
+to be found which can integrate the different data types. Biological data also
+originates, in most cases, from laboratory experiments. This has the
+consequence that equipment- and protocol-dependent biases are almost
+guaranteed to be present. Even the person performing the experiment can be a
+confounding factor. It is thus highly unusual that experimental results from
+different laboratories agree. A promising remedy for this is zero-sum
+regression by \citet{Altenbuchinger2017}, an extension to conventional linear
+regression that has also been adapted to logistic regression \citep{%
+Kleinbaum2002} and Cox proportional hazard regression \citep{Fox2002}.
+Zero-sum regression, in its simplest from, enforces the zero-sum constraint
+on a log-linear model, meaning a linear model on log-transformed data where
+the choice of the reference point can result in sample-wise shifts.
+\begin{align*}
+  \intertext{Assume\marginnote{Zero-Sum Regression}\label{mar:zerosum} again a
+  model with many parameters $\theta_{j}$ that should predict an outcome
+  $y_{i}$ from predictor $x_{i}$ with the form}
+  \widehat{y}_{i}=&\theta_{0}+\sum_{j=1}^{n}\theta_{j}
+    \operatorname{log}\!\left(y_{i}\,x_{ij}\right)\\
+  \widehat{y}_{i}=&\theta_{0}+
+    \sum_{j=1}^{n}\theta_{j}\operatorname{log}\!\left(y_{i}\right)+
+    \sum_{j=1}^{n}\theta_{j}\operatorname{log}\!\left(x_{ij}\right)\\
+  \widehat{y}_{i}=&\theta_{0}+
+    \operatorname{log}\!\left(y_{i}\right)
+    {\color{s-cyan}\sum_{j=1}^{n}\theta_{j}}+
+    \sum_{j=1}^{n}\theta_{j}\operatorname{log}\!\left(x_{ij}\right)
+\end{align*}
+By restricting the sum of coefficients (marked in {\color{s-cyan}blue}) to zero, the linear model is made insensitive to the choice of the reference point. Example reference points include the amount of DNA or RNA included in an experiment or the number of cells. Zero-sum regression assumes that any chosen reference point can be suboptimal. Thus, a model and the resulting biological interpretation should not rely on it, if possible.
+
+% ··············································································
+% write explanation of zero-sum regression here ································
+% ··············································································
+
+Other pitfalls of biological data include its volume, variance, and range. Due
+to being measurements of inherently noisy phenomena, biological data is usually
+generated in replicates. This makes it possible to attribute parts of the
+observed variance to experimental conditions, such as batch effects, while the
+remainder derives from the phenomenon itself. However, this also means that the
+data volume is multiplied by the number of replicates. Because sets of raw
+data generated by modern methods can easily reach several hundreds of gigabytes
+in size, these measurements can become challenging to handle without
+appropriate computational resources. Biological phenomena also tend to span
+several orders of magnitude, for example, in the case of transcript counts
+associated with individual genomic loci. This complicates matters primarily due
+to the human factor involved since humans are generally ill-equipped to think
+analytically in logarithmic terms, even though our senses perceive stimuli on a
+logarithmic scale \citep{Sun2012a}.
+
+Finally,\marginnote{Curse of Dimensionality}\label{mar:dimensionality}
+biological data also tends to suffer from the curse of dimensionality, a term
+coined by  Richard E. Bellman \citep{Bellman1957,Bellman1961}. In machine
+learning, dimensions are synonymous with features, and the curse of
+dimensionality refers to the pros and cons of a data set with many features; a
+high-dimensional data set. On the one hand, having many features can be a
+blessing when it comes to separating data into distinct classes, as points that
+are difficult, if not impossible, to separate clearly in low dimensions can
+become easy to separate in higher dimensions. However, on the other hand, when
+the dimensionality of Euclidean space increases, the distance between points in
+the space increases, too, as it is proportional to the square root of the
+number of dimensions \citep{Tabak2014}. This has the consequence that, with
+increasing dimensions, Euclidean space becomes vast, and the data becomes
+sparse. Dimensionality reductions methods like PCA \citep{Pearson1901}, t-SNE
+\citep{Hinton}, UMAP \citep{McInnes2018}, or Autoencoders \citep{Kramer1991}
+can serve as a remedy for this problem.
+
+% ┌────────────────────────────────────────────────────────────────────────────┐
+% │ Method Overview                                                            │
+% └────────────────────────────────────────────────────────────────────────────┘
+
+\section{Method Overview}\label{sec:methoverview}
+As many statistical methods are used in more than one instance in the included
+publications, the following section describes the main methods of interest.
+
+% Brown–Forsythe test

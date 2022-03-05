@@ -47,25 +47,29 @@
 \mainmatter
 \pagestyle{headings} % this reverts \pagestyle{empty} in the front-matter
 
-\include{03_Chapters/chapters}
+\include{03_Chapters/01_introduction}
+\include{03_Chapters/02_alus}
+\include{03_Chapters/03_angio}
+\include{03_Chapters/04_alk}
+\include{03_Chapters/05_conclusion}
 
-\listoffigures
+% \listoffigures
 
-\listoftables
+% \listoftables
 
 \bibliographystyle{07_Bibliography/urlapa}        % defines bibliography style
 \bibliography{07_Bibliography/library}            % bibtex file location
 
 \cleardoublepage
 
-\input{99_BackMatter/01_Statement.tex}
+\input{98_BackMatter/01_Statement.tex}
 
 \cleardoublepage
 
 \cleardoublepage
 
-\input{99_BackMatter/02_Acknowledgement.tex} 
+\input{98_BackMatter/02_CV.tex}
 
-\input{99_BackMatter/03_CV.tex}
+\input{98_BackMatter/03_Acknowledgement.tex} 
 
 \end{document}
