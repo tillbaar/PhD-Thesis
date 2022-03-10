@@ -209,6 +209,7 @@ training data.
 % └────────────────────────────────────────────────────────────────────────────┘
 
 \subsubsection{Regression and Classification}\label{subsubsec:regclas}
+\addcontentsline{toc}{subsection}{Regression and Classification}
 While the variety of mathematical models seems almost endless, the models
 employed in the publications that comprise this dissertation belong
 predominantly to the field of machine learning. These algorithms encompass
@@ -247,6 +248,7 @@ labels \citep{James2009}.
 % └────────────────────────────────────────────────────────────────────────────┘
 
 \subsubsection{Peculiarities of Biological Data}\label{subsubsec:biodata}
+\addcontentsline{toc}{subsection}{Peculiarities of Biological Data}
 As an empirical and descriptive discipline, the life sciences, and biology, in
 particular, are founded on data. The nature of this information is thus vital
 to all scientific enquiries in the field. Following the introductions by
@@ -350,11 +352,17 @@ the choice of the reference point can result in sample-wise shifts.
     {\color{s-cyan}\sum_{j=1}^{n}\theta_{j}}+
     \sum_{j=1}^{n}\theta_{j}\operatorname{log}\!\left(x_{ij}\right)
 \end{align*}
-By restricting the sum of coefficients (marked in {\color{s-cyan}blue}) to zero, the linear model is made insensitive to the choice of the reference point. Example reference points include the amount of DNA or RNA included in an experiment or the number of cells. Zero-sum regression assumes that any chosen reference point can be suboptimal. Thus, a model and the resulting biological interpretation should not rely on it, if possible.
-
-% ··············································································
-% write explanation of zero-sum regression here ································
-% ··············································································
+By restricting the sum of coefficients (marked in {\color{s-cyan}blue}) to
+zero, the linear model is made insensitive to the choice of the reference
+point. Example reference points include the amount of DNA or RNA included in
+an experiment or the number of cells. Zero-sum regression assumes that any
+chosen reference point can be suboptimal. Thus, a model and the resulting
+biological interpretation should not rely on it, if possible. The systematic
+differences between experimental conditions are modelled separately and can
+thus be removed. The intuition behind the method is that, in high-dimensional
+space, a subspace is found that lies orthogonal to the unwanted shift in the
+data. Thereby, the subspace becomes invariant to the systematic differences.
+% Zero-sum regression also does not compromise predictive performance
 
 Other pitfalls of biological data include its volume, variance, and range. Due
 to being measurements of inherently noisy phenomena, biological data is usually
@@ -397,3 +405,11 @@ As many statistical methods are used in more than one instance in the included
 publications, the following section describes the main methods of interest.
 
 % Brown–Forsythe test
+% Fisher's exact test
+% Mann-Whitney U test
+
+% decision trees: conditional inference trees
+
+% random forest: mean decrease in accuracy
+
+%The first measure is computed from permuting OOB data: For each tree, the prediction error on the out-of-bag portion of the data is recorded (error rate for classification, MSE for regression). Then the same is done after permuting each predictor variable. The difference between the two are then averaged over all trees, and normalized by the standard deviation of the differences. If the standard deviation of the differences is equal to 0 for a variable, the division is not done (but the average is almost always equal to 0 in that case).
