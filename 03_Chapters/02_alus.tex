@@ -180,22 +180,22 @@ features alone.
 \noindent The \textalpha-amanitin\marginnote{Differential Expression Analysis}
 \label{mar:aludeseq2} Pol-II inhibition experiment was the key to
 investigating the origin of Alu transcripts. To analyse the RNAseq
-measurements, we used the DESeq2 package for R \citep{Love2014} (see also
-\nameref{sec:methoverview}). The standard assumption of DESeq2's internal
-normalisation strategy is that there are no substantial, systematic global
-expression changes between samples. Due to the inhibition of Pol-II, we have
-to assume that this does not hold. We, therefore, used mitochondrial
-transcripts (mtRNAs) for normalisation, which are unaffected by the
-\textalpha-amanitin treatment. This is because the mitochondrial polymerase
-that transcribes mtRNAs is not inhibited by \textalpha-amanitin
-\citep{Menon1971,Reid2830,Saccone1971}. The resulting differential expression
-estimates of Alu elements, mRNAs, and tRNAs, which we used as a negative
-control as they are transcribed by Pol-III, which is also unaffected by
-\textalpha-amanitin, are shown in \cref{fig:aludeseq2} \citep{White1997}.
-As expected, tRNAs remain largely unaffected by the \textalpha-amanitin
-treatment, while mRNAs exhibit downregulation. Notably, Alu RNAs also appear
-downregulated under Pol-II inhibition, suggesting strongly that Alu elements
-are, at least to a certain extent, transcribed by Pol-II.
+measurements, we used the DESeq2 package for R \citep{Love2014}. The standard
+assumption of DESeq2's internal normalisation strategy is that there are no
+substantial, systematic global expression changes between samples. Due to the
+inhibition of Pol-II, we have to assume that this does not hold. We,
+therefore, used mitochondrial transcripts (mtRNAs) for normalisation, which
+are unaffected by the \textalpha-amanitin treatment. This is because the
+mitochondrial polymerase that transcribes mtRNAs is not inhibited by
+\textalpha-amanitin \citep{Menon1971,Reid2830,Saccone1971}. The resulting
+differential expression estimates of Alu elements, mRNAs, and tRNAs, which we
+used as a negative control as they are transcribed by Pol-III, which is also
+unaffected by \textalpha-amanitin, are shown in \cref{fig:aludeseq2}
+\citep{ White1997}. As expected, tRNAs remain largely unaffected by the
+\textalpha-amanitin treatment, while mRNAs exhibit downregulation. Notably,
+Alu RNAs also appear downregulated under Pol-II inhibition, suggesting
+strongly that Alu elements are, at least to a certain extent, transcribed by
+Pol-II.
 \bigbreak
 
 \noindent To address\marginnote{Correlation Analysis}\label{mar:alucor} the
@@ -228,7 +228,7 @@ generalised linear model created with the glmnet package for R
 \citep{Nelder1972, Friedman2010} (see also \nameref{sec:methoverview}). We
 assumed a Poisson family distribution response type and used an elastic mixing
 parameter \textalpha{} of \num{1} (full Lasso penalty, no ridge regression
-penalty), no fitted intercept parameter, and \num{1000}$\times$ cross-
+penalty), no fitted intercept parameter, and \num{1000}$\times$ cross-%
 validation. To create the input matrices, we aligned all Alu sequences against
 the Alu consensus sequence and encoded base exchanges, deletions, and
 insertions for each position as a binary matrix. For these three types of

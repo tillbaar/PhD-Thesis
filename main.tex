@@ -41,6 +41,7 @@
 \addtocontents{toc}{\protect\thispagestyle{empty}}
 % This command removes the page number even from the first page of a multi-
 % page ToC: tex.stackexchange.com/questions/2995/removing-page-number-from-toc
+\enlargethispage{5\baselineskip}
 
 \cleardoublepage
 
@@ -53,20 +54,23 @@
 \include{03_Chapters/04_alk}
 \include{03_Chapters/05_conclusion}
 
+\cleardoublepage
+
+\addtocounter{chapter}{1}
+\addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Appendix}
+\addcontentsline{toc}{subsection}{Bibliography}
+
 \bibliographystyle{07_Bibliography/urlapa}        % defines bibliography style
 \bibliography{07_Bibliography/library}            % bibtex file location
 
 \cleardoublepage
 
 \listoffigures
-
-% \listoftables
+\addcontentsline{toc}{subsection}{List of Figures}
 
 \cleardoublepage
 
 \input{98_BackMatter/01_Statement.tex}
-
-% \cleardoublepage
 
 \cleardoublepage
 

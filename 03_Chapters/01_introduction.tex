@@ -402,28 +402,140 @@ can serve as a remedy for this problem.
 
 \section{Method Overview}\label{sec:methoverview}
 As many statistical methods are used in more than one instance in the included
-publications, the following section describes the main methods of interest.
+publications, the following section describes in short the main methods of
+interest.
+\bigbreak
 
-% Brown–Forsythe test
-% Fisher's exact test
-% Mann-Whitney U test
+\noindent While\marginnote{Hypothesis Testing}\label{mar:tests} more complex
+methods are essential to many findings in the included publications,
+hypothesis testing is nonetheless a vital foundation for any statistical
+analysis. In testing theory, a statistical test describes a method used to
+judge the validity or invalidity of a formal hypothesis \citep{Teunissen2006}.
+As sampled data is subject to errors, it is not possible to definitely prove
+the correctness of such a hypothesis; it is only possible to control the
+probability of making the wrong decision. In general, a hypothesis test
+defines two hypotheses, the null hypothesis $H_{0}$ which is the standard
+assumption and holds until it can be rejected with a sufficiently high
+probability, and the alternative hypothesis $H_{1}$ which only applies if
+$H_{0}$ is rejected.
 
-% correlation analysis
+The three most used hypothesis tests in the included publications are the
+Brown-Forsythe test, Fisher's exact test, and the Mann-Whitney U test
+\citep{Fisher1922,Wilcoxon1945,Mann1947,Brown1974,Winters2010}. The
+Brown-Forsythe test assesses if the variances of two groups are equal
+(homoscedasticity). Fisher's exact test assesses if two or more groups differ
+with regard to categorical data, while the Mann-Whitney U test, also called
+the Wilcoxon rank-sum test, is a nonparametric test that assesses if two
+groups differ with regard to continuous data.
+\bigbreak
 
-% decision trees: conditional inference trees
-% random forest: mean decrease in accuracy
+\noindent Another\marginnote{Correlation}\label{mar:cor} basic method is
+correlation analysis. In the broadest sense, correlation describes any
+relationship between two random variables, or more specifically, the degree to
+which these variables are linearly related \citep{Mann1947}. The two most
+common measures are Pearson's product-moment correlation coefficient and
+Spearman's rank correlation coefficient. Pearson correlation represents a
+normalised covariance measure and can only report linear relationships.
+Spearman correlation, on the other hand, uses the rankings of each variable
+and can thus detect monotonic relationships regardless if they are linear or
+not.
+\bigbreak
 
-% generalised linear model
+\noindent The\marginnote{Decision Trees and Random Forest}\label{mar:trees}
+first more involved method used in the included publications are decision
+trees \citep{Wu2007}. In general, a decision tree, which can be used for
+classification or regression, splits the data set first by the predictor
+variable that best differentiates between the states the outcome variable can
+take. The resulting subsets are then split again, each by the variable best
+suited to the subset. This is repeated until an end condition is reached. Both
+the definition of the best split and the end conditions vary between methods.
+Decision trees, however, are not very robust and tend to generalise poorly.
+Random Forest offers a remedy for this by applying the principle of bagging
+(see \cpageref{mar:bagging}) to decision trees \citep{Ho1995,Breiman2001}. Not
+only is the training data subjected to a bagging scheme, but feature bagging
+is also applied, meaning that a random subset of predictors is considered in
+each tree of the forest. While random forests thereby achieve greatly improved
+generalisation compared to decision trees, they also lose the intrinsic
+interpretability that makes decision trees compelling machine learning models.
+\bigbreak
 
-% de bruijn genome graph
+\noindent A method\marginnote{Generalised Linear Models}\label{mar:glm}
+focused on regression are generalised linear models (GLMs) \citep{Nelder1972}.
+As the name suggests, GLMs generalise linear models (LMs) by introducing a
+link function. The intuition behind the link function is that it provides a
+relationship between the linear combination of predictors in the underlying
+model and another arbitrary distribution function that describes the
+observations. It converts the expected value of the observation to the
+scale of the linear predictor. However, the link function is not a data
+transformation, as it does no operate on individual observations $y_{i}$,
+but on the expectation $\operatorname{E}\!\left(Y\right)$.
 
-% differential expression analysis
+Standard LMs can be considered a subclass of GLMs, where the link function is
+the identity. In nontrivial cases, an exponential-family distribution can be
+modelled by selecting the appropriate link function. For example, an LM cannot
+model observations following a binomial distribution in a meaningful way, as
+it could theoretically predict an outcome above \SI{100}{\percent}. Using the
+appropriate link function rectifies this. Assume a linear predictor
+\begin{align*}
+\eta=&\;\theta_{0}+x_{1}\theta_{1}+x_{2}\theta_{2}+\ldots+x_{n}\theta_{n}
+\intertext{with parameters $\theta_{j}$ and observations $x_{j}$. The link
+  function then takes the form}
+g\!\left(\mu\right)=&\;\eta\quad\text{with}\quad
+  \mu=\operatorname{E}\!\left(Y\right)
+\intertext{where the canonical parameter $\mu$ is one of the parameters in the
+  standard form of the distribution's density function. For example, in the
+  case of a binomial distribution, the link function becomes}
+g\!\left(\mu\right)=&\;\operatorname{ln}\left(\frac{\mu}{n-\mu}\right)
+\end{align*}
+\bigbreak
 
-% maximum likelihood estimation
+\noindent Moving\marginnote{De Bruijn\\{}Genome Graphs}\label{mar:debruijn}
+away from machine learning models in the stricter sense, a De Bruijn genome
+graph is a way to encode sequence variability in a graph structure
+\citep{Chikhi2014}. This method is based on general De Bruijn graphs, which
+are directed graphs representing the overlap between symbol strings
+\citep{Sainte-Marie1894,DeBruijn1946,Good1946}. In the context of biological
+data, the strings are sequences of length $k$ (k-mers), using DNA or RNA bases
+as symbols. Each node in the graph represents one unique k-mer present in the
+source data from which the k-mers are generated. Each node also represents its
+own reverse complement, depending on the direction in which it is traversed.
+Edges in the graph represent overlaps. For example, a sequence $S_{1}$ would
+be connected by an edge to another sequence $S_{2}$ if they overlap except for
+one base, such that
+\begin{align*}
+S_{1}=\left(s_{1},s_{2},\ldots,s_{n}\right)
+  \quad\text{and}\quad
+  S_{2}=\left(s_{2},s_{3},\ldots,s_{n},s_{n+1}\right)
+\end{align*}
+With \num{4} biological bases, each node can have up to \num{16} edges
+connected to it, \num{4} in- and \num{4} out-edged in forward direction and
+again in reverse complement direction. If a graph is compacted, sequential
+nodes without branching edges can be combined into a single node representing
+a sequence with a length greater than $k$.
+\bigbreak
 
-
-
-
-
-
-
+\noindent Underlying\marginnote{Maximum Likelihood Estimation}\label{mar:mle}
+many statistical methods is maximum likelihood estimation (MLE), which aims to 
+fit a distribution to observed data by estimating the distribution's parameters
+\citealt{James2009}. Assume a set of observations $x_{1},x_{2},\ldots,x_{n}$
+that come from an unknown distribution function $f$ with parameters
+$\vartheta$. The density function of $f$ can thus be expressed as
+\begin{align*}
+f\!\left(x_{1},x_{2},\ldots,x_{n};\vartheta\right)=&
+  \prod_{i=1}^{n}f\!\left(x_{i};\vartheta\right)
+\intertext{The density can now be reformulated as a function depending on
+  $\vartheta$ to arrive at the likelihood function}
+\mathcal{L}\!\left(\vartheta\right)=&
+  \prod_{i=1}^{n}f_{\vartheta}\!\left(x_{i}\right)
+\intertext{Maximising the likelihood function with respect to the distribution
+  function parameters $\vartheta$ thus results in the maximum likelihood
+  estimates for $\vartheta$. Alternatively, the logarithmic likelihood
+  function can be maximised instead, which is often an easier feat and
+  results in the same estimates for $\vartheta$.}
+\ell\!\left(\vartheta\right)=&
+  \operatorname{log}\left(\prod_{i=1}^{n}f_{\vartheta}\!\left(x_{i}\right)
+  \right)
+\end{align*}
+The main drawback of MLE is that the correction underlying distribution the
+data is sampled from must be used. Should the distribution be assumed wrongly,
+the results of the MLE will most likely be inconsistent.
