@@ -15,14 +15,14 @@ LGIB describes any form of gastrointestinal (GI) bleeding occurring in the
 lower gastrointestinal tract, which includes most of the small intestine and
 all of the large intestine \citep{Treuting2018}. GI bleeding can have many
 causes, including cancer, and the resulting blood loss can lead to shock,
-syncope, and even death with a chance of around \SI{15}{\percent} \citep{%
-Rockey2005,PrasadKerlin2013,Wang2013,Kim2014}. While the majority of GI
+syncope, and even death with a chance of around \SI{15}{\percent} in general
+\citep{Rockey2005,PrasadKerlin2013,Wang2013,Kim2014}. While the majority of GI
 bleedings subside on their own or can be arrested through endoscopic
 treatment, endoscopy cannot detect the cause of LGIB in \SI{40}{\percent} of
-all cases \citep{Yamada2015,Werner2018}. Once localised, though, over \SI{90}{%
-\percent} of LGIBs can be treated successfully. It is therefore vital that
-in cases with symptoms severe enough to result in hospitalisation, the source
-of bleeding is identified quickly and reliably and that hemostasis is
+all cases \citep{Yamada2015,Werner2018}. Once localised, though, over
+\SI{90}{\percent} of LGIBs can be treated successfully. It is therefore vital
+that in cases with symptoms severe enough to result in hospitalisation, the
+source of bleeding is identified quickly and reliably and that hemostasis is
 achieved, be that through endoscopic treatment or surgery \citep{Strate2010,
 Werner2018}.
 
@@ -41,7 +41,7 @@ patient's referral to a radiologist. Thus, the decision of when to conclude
 endoscopic procedures and begin angiographic treatment is challenging. If
 angiography is initiated too late, the patient is subjected to multiple
 failed endoscopies, while if angiography is used too early, the patient is
-needlessly exposed to the side effects of radiological treatment.
+needlessly exposed to the side effects of radiological and surgical treatment.
 
 Accordingly, our goal was to construct a decision-making aid for clinicians,
 assisting them in deciding when to apply endoscopy and when to apply
@@ -68,25 +68,28 @@ laboratory test results.
 \subsubsection{Analysis}\label{subsubsec:angioanalysis}
 \addcontentsline{toc}{subsection}{Analysis}
 All of our data was ultimately recorded by humans and was thus flawed, which
-may sound harsh but is true more often than not. Therefore, data cleaning and
-validation was the first step, an arduous step that is nonetheless crucial.
+may sound harsh but is true more often than not. For example,
+\citet{Gotzsche1989} reports that \SI{76}{\percent} of the \num{196} analysed
+drug trials to treat rheumatoid arthritis contained \enquote{doubtful or
+invalid statements} \citep{Brown2018}. Therefore, data cleaning and validation
+was the first step, an arduous step that is nonetheless crucial.
 
 Descriptive statistics followed, along with na\"{i}ve pairwise correlation
 analyses between selected variables and nonparametric tests, using either
 Fisher's exact test or the Mann-Whitney U test, depending on the data at hand
-\citep{Winters2010} (see also \nameref{sec:methoverview}). Then, as no biases
-or other incongruities arose, the principal analysis could commence.
+\citep{Winters2010} (see also \nameref{sec:methoverview}).
 
-Two items had to be considered at the start. Firstly, we had to establish that
-we assume the professional decision of the clinicians to treat a patient
-either with or without angiography to be founded in their medical expertise.
-The alternative assumption would be that we cannot equate a patient receiving
-angiographic treatment with the need of a patient to receive such treatment.
-Under this alternative assumption, our investigation could not have drawn any
-meaningful conclusions. It is a natural limitation of a retrospective study,
-which is also why prospective investigations are necessary before an official
-guideline can be established. Hence, we assume that a causal link exists
-between a patient's statistics and treatment.
+At the start of the principal analysis, two items had to be considered .
+Firstly, we had to establish that we assume the professional decision of the
+clinicians to treat a patient either with or without angiography to be founded
+in their medical expertise. The alternative assumption would be that we cannot
+equate a patient receiving angiographic treatment with the need of a patient
+to receive such treatment. Under this alternative assumption, our
+investigation could not have drawn any meaningful conclusions. It is a natural
+limitation of a retrospective study, which is also why prospective
+investigations are necessary before an official guideline can be established.
+Hence, we assume that a causal link exists between a patient's statistics and
+treatment.
 
 \begin{figure}[b!]
 \centering
@@ -124,18 +127,21 @@ inference trees (see \nameref{sec:methoverview}).
 \label{fig:angioforest}
 \end{figure}
 
-\noindent We decided to construct two decision trees shown in \cref{%
-fig:angiotree}, one based on all recorded patient variables and another based
-solely on the clinically relevant variables. The trees offer a straightforward
-way for a clinician to determine if a patient should receive angiography or
-not. Using the tree based on the full variable set as an example, only two
-queries are needed for a patient: If hemostasis was achieved in the first
-endoscopy, the number of blood transfusions a patient has received is needed.
-On the other hand, if the primary endoscopy failed to achieve hemostasis, the
-Glasgow-Blatchford Bleeding Score (GBS) of the patient becomes the telling
-factor. The GBS is used to classify the severity of GI bleeding \citep{%
-Laursen2015}.
+We decided to construct two decision trees shown in \cref{fig:angiotree}, one
+based on all recorded patient variables and another based solely on the
+clinically relevant variables. The trees offer a straightforward way for a
+clinician to determine if a patient should receive angiography or not. Using
+the tree based on the full variable set as an example, only two queries are
+needed for a patient: If hemostasis was achieved in the first endoscopy, the
+number of blood transfusions a patient has received is needed as input. On the
+other hand, if the primary endoscopy failed to achieve hemostasis, the Glasgow-
+Blatchford Bleeding Score (GBS) of the patient becomes the telling factor. The
+GBS is used to classify the severity of GI bleeding \citep{Laursen2015}.
+\pagebreak
 
+% page break ...................................................................
+
+\noindent
 In addition, we also used random forest to compute the mean decrease in
 accuracy variable importance measure for the variables used in constructing
 the decision trees \citep{Han2016} (see also \nameref{sec:methoverview}). This

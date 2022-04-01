@@ -12,11 +12,28 @@ positions. We wanted to answer four questions concerning the transcription
 and degradation of Alu RNAs and the sequence features that influence these
 processes.
 
-Alu elements, classified as short interspersed nuclear elements (SINEs), are
-around \num{300}~bp long mobile DNA sequences found in the human genome and
-other species \citep{Quentin1992,Lander2001,JO2007,Deininger2011}. They are
-RNA retrotransposons, meaning that they are capable of copying themselves into
-new positions in the genome. Due to this multiplication, Alu elements make up
+\begin{figure}[b!]
+\centering
+ \makebox[\textwidth][l]{
+   \includegraphics[width=\textwidth+\marginparwidth+\marginparsep]{
+     04_GraphicFiles/02_alu_life.eps}}
+\caption{Modification of figure 1a from \citet{Baar2022}, showing a schematic
+  representation of Alu retrotransposition (left to right): the Alu element
+  is transcribed -- the Alu RNA attaches itself to the exit tunnel of the
+  ribosome through its SRP sequence homolog -- a LINE-1 RNA arrives at the
+  ribosome and its retrotransposase is translated -- the Alu RNA hijacks the
+  LINE-1 retrotransposase -- the LINE-1 retrotransposase reinserts the Alu
+  element into a new genomic position.}
+\label{fig:alulife}
+\end{figure}
+
+Alu elements, named after a restriction endonuclease of \textit{Athrobacter
+luteus} which lead to their discovery, classified as short interspersed
+nuclear elements (SINEs), are around \num{300}~bp long mobile DNA sequences
+found in the human genome and other species
+\citep{Schmid1975,Quentin1992,Lander2001,JO2007,Deininger2011}. They are RNA
+retrotransposons, meaning that they are capable of copying themselves into new
+positions in the genome. Due to this multiplication, Alu elements make up
 \SI{11}{\percent} of the human genome by length, with more than \num{1}
 million currently annotated loci \citep{Lander2001}.
 
@@ -36,21 +53,6 @@ in particular \citep{Mariner2008,LL2017,Zhang2019}.
 
 We wanted to address four questions regarding Alu elements, their
 transcription, and their sequence features:
-
-\begin{figure}[b!]
-\centering
- \makebox[\textwidth][r]{
-   \includegraphics[width=\textwidth+\marginparwidth+\marginparsep]{
-     04_GraphicFiles/02_alu_life.eps}}
-\caption{Modification of figure 1a from \citet{Baar2022}, showing a schematic
-  representation of Alu retrotransposition (left to right): the Alu element
-  is transcribed -- the Alu RNA attaches itself to the exit tunnel of the
-  ribosome through its SRP sequence homolog -- a LINE-1 RNA arrives at the
-  ribosome and its retrotransposase is translated -- the Alu RNA hijacks the
-  LINE-1 retrotransposase -- the LINE-1 retrotransposase reinserts the Alu
-  element into a new genomic position.}
-\label{fig:alulife}
-\end{figure}
 
 \begin{enumerate}[labelindent=0pt]
   \item Are Alu RNAs stable or unstable?\smallskip\newline
@@ -99,7 +101,7 @@ transcription, and their sequence features:
 
 \subsubsection{Methodology}\label{subsubsec:alumethod}
 \addcontentsline{toc}{subsection}{Methodology}
-This study made use of bulk, whole-genome RNAseq data, partially generated
+This study made use of bulk, whole-genome RNA-seq data, partially generated
 specifically for our investigation and partially repurposed from our earlier
 publication \citet{Schwalb2016a}. The RNA was extracted from K562 cells, an
 immortalised human suspension cell line of erythroleukemia cells
@@ -107,7 +109,7 @@ immortalised human suspension cell line of erythroleukemia cells
 characteristics:
 
 Firstly, we used dynamic transcriptome analysis (DTA), specifically the 4sUseq
-and the TTseq methods \citep{Schwalb2012,Gressel2019}. DTA chemically labels
+and the TT-seq methods \citep{Schwalb2012,Gressel2019}. DTA chemically labels
 newly created transcripts, making them distinguishable from old RNAs still
 present from before the labelling pulse. This allowed us to calculate the
 ratio between old and new transcripts and thereby estimate these transcripts'
@@ -116,7 +118,7 @@ half-life.
 Secondly, we performed a Pol-II inhibition experiment using \textalpha-%
 amanitin, a toxic substance from the \textit{Amanita phalloides} fungus that
 blocks Pol-II activity \citep{Lindell1970,Kedinger1970,Stirpe1967,Jacob1970}.
-We treated K562 cells with \textalpha-amanitin and compared their RNAseq data
+We treated K562 cells with \textalpha-amanitin and compared their RNA-seq data
 with untreated samples. We could thus observe the effect of Pol-II inhibition
 on different transcript classes, including Alu elements, \textit{bona fide}
 Pol-II genes, and tRNAs, which are transcribed by the uninhibited Pol-III.
@@ -146,9 +148,9 @@ where $l_{a}$ and $t_{a}$ are the numbers of labelled or total RNA molecules
 and $\Delta{}t$ is the labelling pulse’s duration, meaning the time that
 passed after the labelling agent was added and before the RNA sequencing was
 performed. From the decay rate $\delta{}_{a}$ the half-life
-$t_{\nicefrac{1}{2}}$ is given by
+$t_{\nicefrac{1}{2},a}$ is given by
 \begin{align*}
-t_{\nicefrac{1}{2}}=\frac{\ln\left(2\right)}{\delta}
+t_{\nicefrac{1}{2},a}=\frac{\ln\left(2\right)}{\delta_{a}}
 \end{align*}
 To estimate the ratio between labelled and total RNA molecules from the
 measured reads, we used maximum likelihood estimation (MLE) \citep{Rossi2018}
@@ -207,7 +209,11 @@ compared to Alu elements that are far away from genes. The expression of a
 gene should also correlate with the expression of Alu elements inside or close
 to it. Finally, Alu elements should show a bias towards lying in sense
 direction with regard to their associated gene.
+\pagebreak
 
+% page break ...................................................................
+
+\noindent
 While we did detect a significantly higher expression of Alu elements that lie
 inside or close to genes, this effect can result easily from increased genome
 accessibility in areas of active gene transcription \citep{Guo2016}. This also
@@ -240,13 +246,35 @@ respective importance, uncovering several influential positions.
 
 \noindent Secondly,\marginnote{De Bruijn Graph}\label{mar:alugraph} to detect
 larger sequence features, we created a De Bruijn graph of all Alu sequences
-using bifrost v1.0.5 \citep{Holley2020} (see also \nameref{sec:methoverview}).
-As the graph was almost complete with an in-degree per node of \num{>7.99}, we
-focused on the constituent k-mers and disregarded the graph structure in
-downstream analyses. We filtered the k-mers using two criteria. The expression
-of Alu elements possessing the k-mer needed to be significantly different from
-those not possessing it. Also, we took each k-mers's suffix and prefix into
-account.
+using bifrost v1.0.5 \citep{Holley2020}. A De Bruijn genome graph is a way to
+encode sequence variability in a graph structure \citep{Chikhi2014}. This
+method is based on general De Bruijn graphs, which are directed graphs
+representing the overlap between symbol strings
+\citep{Sainte-Marie1894,DeBruijn1946,Good1946}. In the context of biological
+data, the strings are sequences of length $k$ (k-mers), using DNA or RNA bases
+as symbols. Each node in the graph represents one unique k-mer present in the
+source data from which the k-mers are generated. Each node also represents its
+own reverse complement, depending on the direction in which it is traversed.
+Edges in the graph represent overlaps. For example, a sequence $S_{1}$ would
+be connected by an edge to another sequence $S_{2}$ if they overlap except for
+one base, such that
+\begin{align*}
+S_{1}=\left(s_{1},s_{2},\ldots,s_{n}\right)
+  \quad\text{and}\quad
+  S_{2}=\left(s_{2},s_{3},\ldots,s_{n},s_{n+1}\right)
+\end{align*}
+With \num{4} biological bases, each node can have up to \num{16} edges
+connected to it, \num{4} in- and \num{4} out-edged in forward direction and
+again in reverse complement direction. If a graph is compacted, sequential
+nodes without branching edges can be combined into a single node representing
+a sequence with a length greater than $k$.
+
+As the De Bruijn genome graph we constructed from all Alu sequences was almost
+complete with an in-degree per node of \num{>7.99}, we focused on the
+constituent k-mers and disregarded the graph structure in downstream analyses.
+We filtered the k-mers using two criteria. The expression of Alu elements
+possessing the k-mer needed to be significantly different from those not
+possessing it. Also, we took each k-mers's suffix and prefix into account.
 
 Assuming a k-mer with the structure $\text{X\,J\,Y}$, with
 $\text{X},\text{Y}\in\{A,C,T,G\}$ and $\text{J}$ a fixed 2-mer, to assure that
@@ -256,7 +284,7 @@ containing the k-mer's prefix $\text{X\,J}$ or its suffix $\text{J\,Y}$, but
 not the full k-mer. Thus we can be confident that the observed effect is
 caused by the complete k-mer and not just its partial sequence.
 
-\noindent With this method. we uncovered several statistically significant and
+With this method. we uncovered several statistically significant and
 biologically relevant sequence motifs which previous attempts using regular
 \textit{de novo} motif search did not \citep{Zhang2019}.
 \bigbreak
@@ -267,7 +295,11 @@ Alu elements originating in independent Pol-II transcription, not originating
 as side products of gene transcription. Finally, we also identified a list of
 sequence features that influence Alu expression and might therefore be
 promising targets for future investigations.
+\pagebreak
 
+% page break ...................................................................
+
+\null
 \vfill
 \noindent My contribution to this publication was the complete bioinformatic
 and statistical analysis.\nopagebreak

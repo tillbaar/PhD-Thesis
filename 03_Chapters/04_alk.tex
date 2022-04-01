@@ -38,18 +38,15 @@ cancer. \textit{TP53} is classified as a tumour suppressor gene, as it
 prevents genome mutation \citep{Surget2013}. It plays a role in cell cycle
 regulation and apoptosis, activating DNA repair mechanisms when damage has
 been sustained and halting the cell cycle until the damage is repaired. If the
-damage is too severe and cannot be repaired, it initiates programmed cell
-death. \textit{TP53} mutations are thus frequent in many cancer types, as
-inactivation of \textit{TP53} severely compromises tumour suppression \citep{%
+damage is too severe and cannot be repaired, it initiates apoptosis.
+\textit{TP53} mutations are thus frequent in many cancer types, as 
+inactivation of \textit{TP53} severely compromises tumour suppression \citep{% 
 Olivier2010}.
 
 Our assumption, which we could corroborate in the publication, was that
 mutations in \textit{TP53} lead to genetic instability, which in turn promote
 the development of resistance mechanisms, reducing patient survival rate in
 \textit{ALK+} lung cancer \citep{Alidousty2018}.
-
-% \bigbreak
-% \noindent
 
 \subsubsection{Methodology}\label{subsubsec:alkmethod}
 \addcontentsline{toc}{subsection}{Methodology}
@@ -59,7 +56,7 @@ exhibit genetic instability, we examined tumour tissue samples from a total of
 depending on the used laboratory procedure, not all samples were eligible for
 analysis.
 
-Bulk, panel-based DNAseq was used to categorise the tumour samples according
+Bulk, panel-based DNA-seq was used to categorise the tumour samples according
 to the variants present in a set of genes of interest. In panel-based
 sequencing, a mix of PCR primers limits the analysis to selected genomic
 target loci. This has the benefit of increasing the coverage of these loci, as
@@ -78,7 +75,7 @@ publication. FISH offers the benefit of being a well- established laboratory
 technique in cancer diagnostics, reliable at detecting translocation events
 with clinical relevance. Its shortcomings are that is it a labour-intensive
 protocol and can only detect specific breakpoints, which is why FISH will most
-likely be replaced by genome-wide DNAseq in the future \citep{Skovgaard2011}.
+likely be replaced by genome-wide DNA-seq in the future \citep{Skovgaard2011}.
 Finally, immunohistochemistry (IHC) antibody staining was used to detect the
 presence of the TP53 protein in the tissue samples. As \textit{TP53} is only
 active in early embryonic development, its presence in tumour cells indicates
@@ -122,12 +119,12 @@ three different \textit{ALK+} human lung cancer cell lines with different
 fixation procedure is applied and that the amount of available genetic
 material is unlimited for all practical concerns. This allowed for a chromatin
 immunoprecipitation DNA sequencing (ChIPseq) analysis to be performed on the
-cell culture samples. ChIPseq limits bulk DNAseq to regions of the genome
+cell culture samples. ChIP-seq limits bulk DNA-seq to regions of the genome
 bound by specific proteins \citep{Park2009}. First, proteins bound to the
 genome are chemically immobilised to prevent detachment, and the DNA is
 fragmented. Then, antibodies are used to pull out only those DNA fragments
 bound by specific proteins. Finally, these fragments are sequenced and mapped
-to the genome. In our study, we used ChIPseq to ascertain the binding of MYC
+to the genome. In our study, we used ChIP-seq to ascertain the binding of MYC
 \citep{Dang2012}, a transcription factor that, if overexpressed due to
 increased \textit{MYC} copy numbers, grants \textit{ALK+ TP53}-mutated tumour
 cells a proliferative advantage over their wild-type counterpart. We could
@@ -149,7 +146,7 @@ In this case, the choice of laboratory protocol simplified the analysis. As
 NanoString nCounter technology was employed (see \nameref{mar:nanostring}),
 the data sets consisted of count matrices giving the number of fluorescent
 probe detections, automatically normalised between samples through internal
-controls. Without a prior PRC reaction, no amplification biases could be
+controls. Without a prior PCR reaction, no amplification biases could be
 introduced. We thus chose to use the Brown-Forsythe test for the equality of
 variances \citep{Brown1974} (see also \nameref{sec:methoverview}), which
 confirmed the apparent increased genetic instability of \textit{ALK+ TP53}-

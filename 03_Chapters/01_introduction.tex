@@ -21,17 +21,19 @@ with data, every mathematical model suffers from the bias-variance tradeoff
 \citep{VonLuxburg2009}, i.e., a model needs to find the right balance between 
 overfitting (high variance) and underfitting (high bias). Bias, in this case, 
 describes the difference between a model's average predictions and the true 
-values. A model with high bias is oversimplified. Variance refers to the 
-variability of a model's predictions given the true values. A model with high 
-variance fails to generalise and cannot make accurate predictions.
+values. A model with high bias is oversimplified or even misspecified (i.e.,
+it is inappropriate for describing the data). Variance refers to the
+variability of a model's predictions. A model with high variance fails to
+generalise and cannot make accurate predictions.
 \begin{align*}
   \intertext{Following an example by \citealt{James2009}, assume we wish to
   predict an outcome $Y$ given observations $X=\left\{x_1\dots x_n\right\}$
   with a relationship of}
   Y =&\, f\!\left(X\right)+\varepsilon
   \intertext{where $\varepsilon$ describes a normally distributed error term
-  with mean 0. Further assuming a model $\widehat{f}\!\left(X\right)$ of
-  $f\!\left(X\right)$, the expected squared error for a point $x$ becomes}
+  with mean 0 and standard deviation $\sigma_{\varepsilon}$. Further assuming
+  a model $\widehat{f}\!\left(X\right)$ of $f\!\left(X\right)$, the expected
+  squared error for a point $x$ becomes}
   \operatorname{E}\left(x\right) =&\,
     \operatorname{E}\left[\left(Y-\widehat{f}\!\left(x\right)\right)^2\right]
   \intertext{with $\operatorname{E}$ denoting the expected value. This further
@@ -83,7 +85,7 @@ function that penalises complexity of the model. Thus, the expression to be
 minimised becomes
 \begin{align*}
   \min_{\widehat{f}}\sum_{i=1}^n
-  V\!\left(\widehat{f}\!\left(x_i\right),f\!\left(x_i\right)\right)+
+  V\!\left(\widehat{f}\!\left(x_i\right),y_i\right)+
   \lambda\:R\!\left(\widehat{f}\:\right)
 \end{align*}
 with the parameter $\lambda$ controlling the amount of regularisation that is
@@ -183,7 +185,7 @@ In this fashion, each new stage $m+1$ attempts to correct for the errors made
  by the previous stage $m$.
 \bigbreak
 
-\noindent While \marginnote{Bagging}\label{mar:bagging} regularisation is an
+\noindent While \marginnote{Bagging}\label{mar:bagging} boosting is an
 ensemble method that addresses shortcomings of the model, bagging can be
 regarded as addressing shortcomings of the data \citep{Breiman1996}. The name
 \tqs{bagging} derives from bootstrap aggregating. Bootstrapping is a
@@ -202,7 +204,8 @@ Individual models are then trained on the new training sets $Y_{i}$, and their
 predictions are combined, either by averaging for regression or voting for
 classification (see \nameref{subsubsec:regclas} below). Bagging is especially
 useful for unstable models that can react drastically to small changes in the
-training data.
+training data (see Decision Trees and Random Forest on \cpageref{mar:trees}
+for an example).
 
 % ┌────────────────────────────────────────────────────────────────────────────┐
 % │ Regression and Classification                                              │
@@ -326,8 +329,11 @@ continuous text are difficult to translate into machine-readable form, as well
 \noindent
 As should become clear from this diverse list, biological data can be very
 heterogeneous, which can further complicate its analysis, as models may need
-to be found which can integrate the different data types. Biological data also
-originates, in most cases, from laboratory experiments. This has the
+to be found which can integrate the different data types. Epigenetic data, for
+example, combines spatial, sequence, and pattern information in the form of
+genome architecture and nucleosome positioning, DNA and RNA sequences, as well
+as the patterns of promoters and enhancers \citep{armstrong2020}. Biological
+data also originates, in most cases, from laboratory experiments. This has the
 consequence that equipment- and protocol-dependent biases are almost
 guaranteed to be present. Even the person performing the experiment can be a
 confounding factor. It is thus highly unusual that experimental results from
@@ -335,9 +341,9 @@ different laboratories agree. A promising remedy for this is zero-sum
 regression by \citet{Altenbuchinger2017}, an extension to conventional linear
 regression that has also been adapted to logistic regression \citep{%
 Kleinbaum2002} and Cox proportional hazard regression \citep{Fox2002}.
-Zero-sum regression, in its simplest from, enforces the zero-sum constraint
-on a log-linear model, meaning a linear model on log-transformed data where
-the choice of the reference point can result in sample-wise shifts.
+Zero-sum regression, in its simplest from, enforces the zero-sum constraint on
+a log-linear model, meaning a linear model on log-transformed data where the
+choice of the reference point can result in sample-wise shifts.
 \begin{align*}
   \intertext{Assume\marginnote{Zero-Sum Regression}\label{mar:zerosum} again a
   model with many parameters $\theta_{j}$ that should predict an outcome
@@ -419,10 +425,10 @@ assumption and holds until it can be rejected with a sufficiently high
 probability, and the alternative hypothesis $H_{1}$ which only applies if
 $H_{0}$ is rejected.
 
-The three most used hypothesis tests in the included publications are the
-Brown-Forsythe test, Fisher's exact test, and the Mann-Whitney U test
-\citep{Fisher1922,Wilcoxon1945,Mann1947,Brown1974,Winters2010}. The
-Brown-Forsythe test assesses if the variances of two groups are equal
+The three most used hypothesis tests in the three included publications are
+the Brown-Forsythe test, Fisher's exact test, and the Mann-Whitney U test
+\citep{Fisher1922,Wilcoxon1945,Mann1947,Brown1974,Winters2010}. The Brown-
+Forsythe test assesses if the variances of two groups are equal
 (homoscedasticity). Fisher's exact test assesses if two or more groups differ
 with regard to categorical data, while the Mann-Whitney U test, also called
 the Wilcoxon rank-sum test, is a nonparametric test that assesses if two
@@ -489,37 +495,13 @@ g\!\left(\mu\right)=&\;\operatorname{ln}\left(\frac{\mu}{n-\mu}\right)
 \end{align*}
 \bigbreak
 
-\noindent Moving\marginnote{De Bruijn\\{}Genome Graphs}\label{mar:debruijn}
-away from machine learning models in the stricter sense, a De Bruijn genome
-graph is a way to encode sequence variability in a graph structure
-\citep{Chikhi2014}. This method is based on general De Bruijn graphs, which
-are directed graphs representing the overlap between symbol strings
-\citep{Sainte-Marie1894,DeBruijn1946,Good1946}. In the context of biological
-data, the strings are sequences of length $k$ (k-mers), using DNA or RNA bases
-as symbols. Each node in the graph represents one unique k-mer present in the
-source data from which the k-mers are generated. Each node also represents its
-own reverse complement, depending on the direction in which it is traversed.
-Edges in the graph represent overlaps. For example, a sequence $S_{1}$ would
-be connected by an edge to another sequence $S_{2}$ if they overlap except for
-one base, such that
-\begin{align*}
-S_{1}=\left(s_{1},s_{2},\ldots,s_{n}\right)
-  \quad\text{and}\quad
-  S_{2}=\left(s_{2},s_{3},\ldots,s_{n},s_{n+1}\right)
-\end{align*}
-With \num{4} biological bases, each node can have up to \num{16} edges
-connected to it, \num{4} in- and \num{4} out-edged in forward direction and
-again in reverse complement direction. If a graph is compacted, sequential
-nodes without branching edges can be combined into a single node representing
-a sequence with a length greater than $k$.
-\bigbreak
-
 \noindent Underlying\marginnote{Maximum Likelihood Estimation}\label{mar:mle}
 many statistical methods is maximum likelihood estimation (MLE), which aims to 
 fit a distribution to observed data by estimating the distribution's parameters
 \citealt{James2009}. Assume a set of observations $x_{1},x_{2},\ldots,x_{n}$
-that come from an unknown distribution function $f$ with parameters
-$\vartheta$. The density function of $f$ can thus be expressed as
+that are independent and identically distributed \textit{(iid)} and come from
+an unknown distribution function $f$ with parameters $\vartheta$. The density
+function of $f$ can thus be expressed as
 \begin{align*}
 f\!\left(x_{1},x_{2},\ldots,x_{n};\vartheta\right)=&
   \prod_{i=1}^{n}f\!\left(x_{i};\vartheta\right)
@@ -539,3 +521,6 @@ f\!\left(x_{1},x_{2},\ldots,x_{n};\vartheta\right)=&
 The main drawback of MLE is that the correction underlying distribution the
 data is sampled from must be used. Should the distribution be assumed wrongly,
 the results of the MLE will most likely be inconsistent.
+
+% MLE can be seen as a special case of maximum a posteriori (MAP) estimation
+% using a uniform prior. 
