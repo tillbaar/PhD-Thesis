@@ -2,9 +2,6 @@
 
 Dissertation by Till Baar of the Faculty of Mathematics and Natural Sciences of the University of Cologne, submitted and accepted in 2022.
 
-[![made-with-latex](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/)<br/>
-Feel free to use my dissertation as a $\LaTeX$ template for your own work.
-
 This cumulative work comprises three publications:
 - [RNA transcription and degradation of Alu retrotransposons depends on sequence features and evolutionary history](https://doi.org/10.1093/g3journal/jkac054)<br/>
 [![DOI:10.1093/g3journal/jkac054](https://zenodo.org/badge/DOI/10.1093/g3journal/jkac054.svg)](https://doi.org/10.1093/g3journal/jkac054)<br/>
@@ -16,7 +13,11 @@ This cumulative work comprises three publications:
 [![DOI:10.1002/path.5110](https://zenodo.org/badge/DOI/10.1002/path.5110.svg)](https://doi.org/10.1002/path.5110)<br/>
 [![Citation Badge](https://api.juleskreuer.eu/citation-badge.php?doi=10.1002/path.5110)](https://juleskreuer.eu/projekte/citation-badge/)
 
-![preview](https://user-images.githubusercontent.com/17084525/175024250-92f707e6-b3fd-4d97-933e-dffffc910a58.jpg)
+![preview](https://user-images.githubusercontent.com/17084525/175029572-0bb7d221-2ede-41b5-97c0-e02ea51645c1.png)
+
+Feel free to use my dissertation as a $\LaTeX$ template for your own work.
+
+[![made-with-latex](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/)
 
 ## Abstract
 
