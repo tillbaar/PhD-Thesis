@@ -18,6 +18,8 @@ This cumulative work comprises three publications:
 Feel free to use my dissertation as a $\LaTeX$ template for your own work.
 
 [![made-with-latex](https://img.shields.io/badge/Made%20with-LaTeX-1f425f.svg)](https://www.latex-project.org/)
+[![Overleaf](https://img.shields.io/badge/--47A141?logo=overleaf&logoColor=ffffff)](https://www.overleaf.com/)
+[![R](https://img.shields.io/badge/--276DC3?logo=r&logoColor=ffffff)](https://www.r-project.org/)
 
 ## Abstract
 
