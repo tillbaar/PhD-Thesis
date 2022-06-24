@@ -24,15 +24,15 @@
 
 \input{02_FrontMatter/01_CoverPage.tex}
 
-\cleardoublepage
+\clearpage
 
 \input{02_FrontMatter/02_BastardTitle.tex}
 
-\cleardoublepage
+% \cleardoublepage
 
 \input{02_FrontMatter/03_FormalTitle.tex}
 
-\cleartoevenpage
+% \cleartoevenpage
 
 \input{02_FrontMatter/04_Abstract.tex}
 
@@ -43,7 +43,7 @@
 % page ToC: tex.stackexchange.com/questions/2995/removing-page-number-from-toc
 \enlargethispage{\baselineskip}
 
-\cleardoublepage
+% \cleardoublepage
 
 \mainmatter
 \pagestyle{headings} % this reverts \pagestyle{empty} in the front-matter
@@ -54,7 +54,7 @@
 \include{03_Chapters/04_alk}
 \include{03_Chapters/05_conclusion}
 
-\cleardoublepage
+% \cleardoublepage
 
 \addtocounter{chapter}{1}
 \addcontentsline{toc}{chapter}{\protect\numberline{\thechapter}Appendix}
@@ -66,16 +66,16 @@
 \bibliography{05_Bibliography/bibliography}            % bibtex file location
 \endgroup
 
-\cleardoublepage
+% \cleardoublepage
 
 \listoffigures
 \addcontentsline{toc}{subsection}{List of Figures}
 
-\cleardoublepage
+% \cleardoublepage
 
 \input{06_BackMatter/01_Statement.tex}
 
-\cleardoublepage
+% \cleardoublepage
 
 \input{06_BackMatter/02_CV.tex}
 
