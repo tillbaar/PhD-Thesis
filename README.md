@@ -13,6 +13,9 @@ This cumulative work comprises three publications:
 [![DOI:10.1002/path.5110](https://zenodo.org/badge/DOI/10.1002/path.5110.svg)](https://doi.org/10.1002/path.5110)<br/>
 [![Citation Badge](https://api.juleskreuer.eu/citation-badge.php?doi=10.1002/path.5110)](https://juleskreuer.eu/projekte/citation-badge/)
 
+<br/>
+<a href="https://kups.ub.uni-koeln.de/62177/"><img src="https://img.shields.io/badge/Download-PDF-4A657D?style=for-the-badge&logo=adobeacrobatreader&logoColor=white" alt="Download"/></a>
+
 ![preview](https://user-images.githubusercontent.com/17084525/175029572-0bb7d221-2ede-41b5-97c0-e02ea51645c1.png)
 
 Feel free to use my dissertation as a $\LaTeX$ template for your own work.
